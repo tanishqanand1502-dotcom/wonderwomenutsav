@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wonder Women Utsav — Sat, 31 Oct 2026 | Sunder Vihar, New Delhi</title>
+<meta name="description" content="Wonder Women Utsav — a women-centric shopping & lifestyle festival. Saturday, 31 October 2026, 10 AM – 8 PM, Sunder Bhawan, Sunder Vihar, New Delhi. Free entry.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,900;1,600;1,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+  :root{
+    --maroon:#060606;
+    --maroon-2:#101010;
+    --purple:#161616;
+    --magenta:#1e1e1e;
+    --fuchsia:#ffe14d;
+    --gold:#d9a92c;
+    --gold-light:#f4d35e;
+    --gold-deep:#a97c1f;
+    --cream:#f6f4ee;
+    --ink:#151310;
+    --shadow-deep: 0 20px 45px rgba(0,0,0,.6);
+    --radius-card: 20px;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html,body{
+    margin:0; padding:0;
+    max-width:100%;
+    overflow-x:hidden;
+    background:var(--maroon);
+    -webkit-tap-highlight-color: transparent;
+  }
+  body{
+    font-family:'Manrope',system-ui,-apple-system,sans-serif;
+    color:var(--cream);
+    line-height:1.5;
+  }
+  img{ max-width:100%; display:block; }
+  a{ text-decoration:none; color:inherit; }
+  button{ font-family:inherit; }
+
+  h1,h2,h3{ font-family:'Fraunces', Georgia, serif; margin:0; }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding: clamp(20px,6vw,40px) clamp(16px,5vw,28px) clamp(36px,8vw,56px);
+    background:
+      radial-gradient(circle at 82% 8%, rgba(217,169,44,.16) 0%, rgba(217,169,44,0) 45%),
+      radial-gradient(circle at 10% 92%, rgba(255,225,77,.07) 0%, rgba(255,225,77,0) 50%),
+      linear-gradient(165deg, var(--maroon) 0%, var(--maroon-2) 30%, var(--purple) 62%, var(--magenta) 100%);
+    overflow:hidden;
+  }
+  .hero::before{
+    /* subtle gold sparkle texture, cheap CSS only */
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(rgba(244,211,94,.32) 1px, transparent 1.5px),
+      radial-gradient(rgba(244,211,94,.2) 1px, transparent 1.5px);
+    background-size: 90px 90px, 130px 130px;
+    background-position: 10px 20px, 60px 90px;
+    opacity:.5;
+    pointer-events:none;
+  }
+
+  /* -------- Hero layout wrappers -------- */
+  .hero-main{
+    position:relative;
+    z-index:2;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .hero-content{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .hero-visual{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .hero-sponsors-desktop{
+    display:none;
+  }
+
+  /* -------- Card stack -------- */
+  .stack-wrap{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:420px;
+    height: clamp(270px, 78vw, 360px);
+    margin: 4px auto clamp(18px,4vw,26px);
+    perspective: 1000px;
+  }
+  .stack-pos{
+    position:absolute;
+    left:50%;
+    bottom:6px;
+    width: 54%;
+    max-width:220px;
+    aspect-ratio: 3/4;
+    transform-origin: 50% 100%;
+    opacity:0; /* GSAP animates in */
+    will-change: transform, opacity;
+  }
+  .stack-card{
+    width:100%;
+    height:100%;
+    border-radius: var(--radius-card);
+    overflow:hidden;
+    box-shadow: var(--shadow-deep);
+    border: 3px solid rgba(244,211,94,.55);
+    position:relative;
+    background:#141414;
+    transform-style:preserve-3d;
+    will-change: transform;
+    cursor:pointer;
+    -webkit-user-select:none; user-select:none;
+  }
+  .stack-zoom-icon{
+    position:absolute;
+    top:8px; right:8px;
+    z-index:3;
+    width:26px; height:26px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px;
+    color:#fff;
+    background: rgba(0,0,0,.45);
+    border-radius:50%;
+    pointer-events:none;
+  }
+  .stack-card img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .stack-bg-blur{
+    position:absolute;
+    inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    filter: blur(22px) brightness(.55) saturate(1.15);
+    transform: scale(1.18);
+    z-index:0;
+  }
+  .stack-main-img{
+    position:relative;
+    z-index:1;
+    object-fit:contain !important;
+  }
+  .stack-card::after{
+    content:"";
+    position:absolute; inset:0;
+    z-index:2;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.6) 100%);
+    pointer-events:none;
+  }
+
+  .wordmark-block{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    max-width: 520px;
+  }
+  .logo-img{
+    display:block;
+    width: clamp(230px, 64vw, 400px);
+    margin: 0 auto clamp(8px,2.4vw,14px);
+    filter: drop-shadow(0 8px 22px rgba(0,0,0,.4));
+  }
+  .sr-only{
+    position:absolute;
+    width:1px; height:1px;
+    padding:0; margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
+
+  .tagline{
+    margin-top: 10px;
+    font-size: clamp(15px,4vw,19px);
+    font-weight:600;
+    color: var(--gold-light);
+  }
+
+  /* -------- Event info bar (date / time / venue) -------- */
+  .event-bar{
+    position:relative;
+    z-index:2;
+    margin: clamp(30px,7vw,44px) auto 0;
+    width:100%;
+    max-width:440px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    padding: clamp(16px,4.5vw,20px) clamp(18px,5vw,26px);
+    border-radius:18px;
+    background: rgba(0,0,0,.45);
+    border: 1.5px solid rgba(217,169,44,.5);
+    backdrop-filter: blur(6px);
+    text-align:center;
+  }
+  .event-top{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap: 8px 10px;
+  }
+  .event-date, .event-time{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    white-space:nowrap;
+  }
+  .event-date{
+    font-family:'Manrope',system-ui,-apple-system,sans-serif;
+    font-weight:800;
+    font-size: clamp(14.5px,3.8vw,17px);
+    color: var(--gold-light);
+  }
+  .event-time{
+    font-size: clamp(12.5px,3.4vw,14.5px);
+    font-weight:600;
+    color: var(--cream);
+  }
+  .event-date i, .event-time i{
+    color: var(--fuchsia);
+    font-size:1.1em;
+    flex:0 0 auto;
+  }
+  .event-divider{
+    color: rgba(217,169,44,.55);
+    font-size:14px;
+  }
+  .event-venue{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    gap:6px;
+    max-width: 300px;
+    font-size: clamp(12px,3.2vw,13.5px);
+    font-weight:500;
+    color: rgba(246,244,238,.8);
+    line-height:1.45;
+  }
+  .event-venue i{
+    color: var(--fuchsia);
+    font-size:1.15em;
+    flex:0 0 auto;
+    margin-top:1px;
+  }
+  .event-free{
+    margin-top:2px;
+    padding: 4px 14px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color: var(--ink);
+    background: var(--fuchsia);
+  }
+
+  .hero-presents-wrap{
+    margin: 0 0 clamp(22px,4.5vw,30px);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: clamp(16px,3.4vw,22px);
+  }
+  .sponsor-tier{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: clamp(8px,1.8vw,10px);
+  }
+  .sponsor-tier-powered{
+    margin: clamp(2px,1vw,6px) 0 clamp(14px,3vw,20px);
+  }
+  .sponsor-tier-label{
+    font-family:'Manrope',system-ui,-apple-system,sans-serif;
+    font-size: clamp(10px,2.6vw,12px);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    font-weight:700;
+    color: rgba(246,244,238,.55);
+    margin:0;
+  }
+  .sponsor-logo-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap: clamp(14px,3.5vw,22px);
+  }
+  .sponsor-logo-slot{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: var(--cream);
+    border-radius:12px;
+    padding: 8px 18px;
+    box-shadow: 0 10px 24px rgba(0,0,0,.4);
+    border: 1px solid rgba(217,169,44,.3);
+    height: clamp(52px,13vw,76px);
+    min-width: clamp(100px,24vw,140px);
+  }
+  .sponsor-logo-slot--title{
+    height: clamp(66px,17vw,100px);
+    min-width: clamp(130px,30vw,180px);
+  }
+  .sponsor-logo-slot span{
+    color: rgba(20,18,14,.35);
+    font-family:'Manrope',system-ui,-apple-system,sans-serif;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+  }
+  .sponsor-logo-slot img{
+    max-height:100%;
+    max-width:100%;
+    object-fit:contain;
+  }
+
+  .cta-row{
+    position:relative;
+    z-index:2;
+    margin-top: clamp(20px,5vw,28px);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    width:100%;
+    max-width:360px;
+  }
+  @media (min-width:430px){
+    .cta-row{ flex-direction:row; flex-wrap:wrap; max-width:480px; }
+  }
+  .cta{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-height:50px;
+    padding: 12px 18px;
+    border-radius:999px;
+    font-weight:700;
+    font-size: clamp(13.5px,3.6vw,15px);
+    white-space:nowrap;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .cta:active{ transform: scale(.97); }
+  .cta i{ font-size:1.2em; }
+  .cta-primary{
+    background: linear-gradient(95deg, var(--gold-light), var(--gold) 55%, var(--fuchsia));
+    color: var(--ink);
+    box-shadow: 0 10px 26px rgba(217,169,44,.4);
+  }
+  .cta-secondary{
+    background: linear-gradient(95deg, var(--gold-light), var(--gold) 55%, var(--fuchsia));
+    color: var(--ink);
+    box-shadow: 0 10px 26px rgba(217,169,44,.4);
+  }
+
+  .cta-row-secondary{
+    position:relative;
+    z-index:2;
+    margin-top: 10px;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    width:100%;
+    max-width:420px;
+  }
+  .cta-mini{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding: 8px 16px;
+    min-height:38px;
+    border-radius:999px;
+    font-size: 12.5px;
+    font-weight:600;
+    color: rgba(246,244,238,.85);
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(246,244,238,.22);
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .cta-mini:active{ transform: scale(.96); }
+  .cta-mini i{ font-size:1.1em; color: var(--gold-light); }
+
+  /* Real brand colors for social icons, everywhere they appear */
+  .cta-mini i.bxl-instagram, .footer-link i.bxl-instagram{
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d, #f56040, #f77737, #fcaf45);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .cta-mini i.bxl-facebook-square, .footer-link i.bxl-facebook-square{
+    color: #1877F2;
+  }
+  .cta-mini i.bx-phone-call, .footer-link i.bx-phone-call{
+    background: linear-gradient(135deg, #34D399, #25D366 55%, #128C7E);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* keyword marquee */
+  .keyword-strip{
+    position:relative;
+    z-index:2;
+    margin-top: clamp(26px,6vw,34px);
+    width:100%;
+    max-width:520px;
+    overflow:hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .keyword-track{
+    display:flex;
+    width:max-content;
+    gap:10px;
+    animation: scrollTags 26s linear infinite;
+  }
+  .keyword-strip:hover .keyword-track{ animation-play-state: paused; }
+  @keyframes scrollTags{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  .tag{
+    flex:0 0 auto;
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.02em;
+    background: rgba(217,169,44,.12);
+    border:1px solid rgba(217,169,44,.4);
+    color: var(--gold-light);
+  }
+
+  .scroll-cue{
+    position:relative;
+    z-index:2;
+    margin-top: clamp(22px,5vw,30px);
+    color: var(--gold-light);
+    font-size: 24px;
+    animation: bounceCue 1.8s ease-in-out infinite;
+    opacity:.85;
+  }
+  @keyframes bounceCue{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(7px); }
+  }
+
+  /* ============ GALLERY (coverflow carousel) ============ */
+  .gallery{
+    position:relative;
+    background: linear-gradient(180deg, var(--maroon) 0%, #141414 55%, var(--maroon-2) 100%);
+    padding: clamp(44px,9vw,72px) 0 clamp(22px,4vw,32px);
+    overflow:hidden;
+  }
+  .gallery-filters{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap: 8px;
+    max-width:820px;
+    margin: 0 auto clamp(14px,2.6vw,18px);
+    padding: 0 clamp(16px,5vw,32px);
+  }
+  .gallery-chip{
+    font-family:'Manrope',system-ui,-apple-system,sans-serif;
+    font-size: clamp(11.5px,2.8vw,13px);
+    font-weight:700;
+    letter-spacing:.02em;
+    padding: 7px 16px;
+    border-radius:999px;
+    background: rgba(255,255,255,.05);
+    border: 1.5px solid rgba(217,169,44,.4);
+    color: rgba(246,244,238,.8);
+    cursor:pointer;
+    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .15s ease;
+  }
+  .gallery-chip:active{ transform: scale(.95); }
+  .gallery-chip:hover{ border-color: rgba(244,211,94,.8); color: var(--gold-light); }
+  .gallery-chip.is-active{
+    background: linear-gradient(95deg, var(--gold-light), var(--gold) 55%, var(--fuchsia));
+    border-color: transparent;
+    color: var(--ink);
+  }
+
+  .carousel-wrap{
+    position:relative;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .carousel{
+    position:relative;
+    width:100%;
+    height: clamp(240px, 52vw, 460px);
+    overflow:hidden;
+    -webkit-user-select:none; user-select:none;
+    touch-action: pan-y;
+  }
+  .carousel-slide{
+    position:absolute;
+    top:50%; left:50%;
+    width: clamp(190px, 46vw, 420px);
+    aspect-ratio: 4/3;
+    border-radius:16px;
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow: 0 20px 45px rgba(0,0,0,.5);
+    will-change: transform, opacity;
+  }
+  .carousel-slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .carousel-slide.is-active{
+    border: 1.5px solid rgba(244,211,94,.55);
+    box-shadow: 0 26px 60px rgba(0,0,0,.6);
+  }
+  .carousel-caption{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding: clamp(12px,3vw,18px) clamp(14px,3.5vw,20px) clamp(10px,2.5vw,14px);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 100%);
+    color: var(--gold-light);
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:700;
+    font-size: clamp(13px,3.2vw,17px);
+    pointer-events:none;
+  }
+
+  .carousel-arrow{
+    position:absolute;
+    top:50%;
+    z-index:10;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:44px; height:44px;
+    border-radius:50%;
+    background: rgba(10,10,10,.55);
+    border: 1.5px solid rgba(217,169,44,.5);
+    color: var(--gold-light);
+    font-size:20px;
+    cursor:pointer;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    transition: background .2s ease, border-color .2s ease, transform .15s ease;
+  }
+  #carouselPrev{ left: clamp(4px,2vw,18px); transform: translateY(-50%); }
+  #carouselNext{ right: clamp(4px,2vw,18px); transform: translateY(-50%); }
+  #carouselPrev:active{ transform: translateY(-50%) scale(.92); }
+  #carouselNext:active{ transform: translateY(-50%) scale(.92); }
+  .carousel-arrow:hover{ border-color: var(--gold-light); background: rgba(20,20,20,.75); }
+
+  /* ============ INSTAGRAM FEED ============ */
+  .insta-feed{
+    position:relative;
+    background: var(--maroon-2);
+    padding: clamp(22px,4vw,32px) clamp(16px,5vw,32px) clamp(50px,9vw,80px);
+  }
+  .insta-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(18px,4vw,28px);
+    max-width: 1000px;
+    margin: 0 auto;
+    justify-items:center;
+  }
+  .insta-embed-wrap{
+    width:100%;
+    max-width:400px;
+    padding: 3px;
+    border-radius:18px;
+    background: linear-gradient(155deg, rgba(217,169,44,.5), rgba(255,255,255,.08));
+    box-shadow: 0 16px 36px rgba(0,0,0,.5);
+  }
+  .insta-embed-wrap > .instagram-media{
+    border-radius:15px !important;
+    margin: 0 !important;
+    width:100% !important;
+  }
+  .insta-follow-wrap{
+    text-align:center;
+    margin-top: clamp(28px,5vw,38px);
+  }
+  .insta-follow-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding: 11px 24px;
+    border-radius:999px;
+    font-weight:700;
+    font-size: clamp(13.5px,3.5vw,15px);
+    color: var(--ink);
+    background: linear-gradient(95deg, var(--gold-light), var(--gold) 55%, var(--fuchsia));
+    box-shadow: 0 10px 26px rgba(217,169,44,.35);
+  }
+  .insta-follow-btn i{
+    font-size:1.2em;
+    background: linear-gradient(45deg, #405de6, #833ab4, #e1306c, #fd1d1d, #f77737, #fcaf45);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ============ WHATS INSIDE ============ */
+  .inside{
+    position:relative;
+    background: linear-gradient(180deg, var(--maroon-2) 0%, #121212 55%, var(--maroon) 100%);
+    padding: clamp(44px,9vw,72px) clamp(16px,5vw,32px) clamp(56px,10vw,90px);
+  }
+  .inside-head{
+    text-align:center;
+    max-width:520px;
+    margin:0 auto clamp(28px,6vw,40px);
+  }
+  .inside-eyebrow{
+    font-size:12px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:8px;
+  }
+  .inside-title{
+    font-size: clamp(26px,7vw,38px);
+    font-weight:800;
+    color:var(--cream);
+  }
+  .inside-title .accent2{
+    color:var(--gold-light);
+    font-style:italic;
+  }
+  .inside-sub{
+    margin-top:10px;
+    font-size: clamp(13.5px,3.6vw,15px);
+    color: rgba(246,244,238,.78);
+  }
+
+  .cat-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(12px,3vw,18px);
+    max-width: 1000px;
+    margin:0 auto;
+  }
+  @media (min-width:640px){
+    .cat-grid{ grid-template-columns: repeat(3,1fr); }
+  }
+  @media (min-width:960px){
+    .cat-grid{ grid-template-columns: repeat(4,1fr); }
+  }
+
+  .cat-tilt{
+    aspect-ratio: 1/1.08;
+    cursor:pointer;
+    -webkit-user-select:none; user-select:none;
+  }
+  .cat-flip{
+    position:relative;
+    width:100%; height:100%;
+    transform-style: preserve-3d;
+    transition: transform .65s cubic-bezier(.2,.8,.2,1);
+  }
+  .cat-tilt.flipped .cat-flip{
+    transform: rotateY(180deg);
+  }
+  .cat-face{
+    position:absolute; inset:0;
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 14px 10px;
+    box-shadow: 0 10px 24px rgba(20,3,12,.4);
+  }
+  .cat-front{
+    background: linear-gradient(155deg, rgba(217,169,44,.18), rgba(255,255,255,.05));
+    border: 1.5px solid rgba(217,169,44,.45);
+  }
+  .cat-emoji{
+    font-size: clamp(30px,7vw,38px);
+    margin-bottom:10px;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.3));
+  }
+  .cat-label{
+    font-size: clamp(12.5px,3.2vw,14px);
+    font-weight:700;
+    color: var(--cream);
+    line-height:1.25;
+  }
+  .cat-tap-hint{
+    margin-top:8px;
+    font-size:10px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color: var(--gold-light);
+    opacity:.75;
+  }
+  .cat-back{
+    background: linear-gradient(155deg, var(--gold-deep), var(--purple) 65%, var(--maroon-2));
+    border: 1.5px solid var(--gold);
+    transform: rotateY(180deg);
+  }
+  .cat-back-emoji{
+    font-size:20px;
+    margin-bottom:6px;
+    opacity:.9;
+  }
+  .cat-back-desc{
+    font-size: clamp(11.5px,2.9vw,12.8px);
+    color: var(--cream);
+    font-weight:500;
+    line-height:1.35;
+  }
+
+  /* focus visibility for keyboard users */
+  .cat-tilt:focus-visible, .cta:focus-visible, .stack-card:focus-visible{
+    outline: 2px solid var(--gold-light);
+    outline-offset: 3px;
+  }
+
+  /* ============ FOOTER ============ */
+  .footer{
+    background: var(--maroon);
+    padding: clamp(40px,8vw,64px) clamp(16px,5vw,32px) clamp(32px,6vw,48px);
+    text-align:center;
+    border-top: 1px solid rgba(217,169,44,.22);
+  }
+  .footer-supported-label{
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color: rgba(246,244,238,.5);
+    margin-bottom: clamp(12px,3vw,16px);
+  }
+  .footer-badge{
+    display:inline-block;
+    background: var(--cream);
+    border-radius:16px;
+    padding: 14px 18px 10px;
+    border: 1.5px solid rgba(217,169,44,.5);
+    box-shadow: 0 10px 26px rgba(0,0,0,.5);
+  }
+  .footer-badge img{
+    width: clamp(84px,22vw,110px);
+    height:auto;
+    display:block;
+    margin:0 auto;
+  }
+  .footer-links{
+    margin-top: clamp(26px,5vw,34px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .footer-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    color: var(--gold-light);
+    font-size: clamp(13px,3.4vw,14.5px);
+    font-weight:600;
+  }
+  .footer-link i{ font-size:1.15em; }
+  .footer-divider{ color: rgba(217,169,44,.4); font-size:13px; }
+  .footer-credit{
+    margin-top: clamp(20px,4vw,28px);
+    font-size:12px;
+    color: rgba(246,244,238,.5);
+  }
+
+  /* ============ LIGHTBOX ============ */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    z-index:999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding: clamp(16px,5vw,40px);
+    background: rgba(0,0,0,.88);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox-inner{
+    position:relative;
+    max-width: 92vw;
+    max-height: 85vh;
+  }
+  .lightbox-inner img{
+    max-width: 92vw;
+    max-height: 85vh;
+    width:auto; height:auto;
+    border-radius: 14px;
+    border: 2px solid rgba(217,169,44,.5);
+    box-shadow: 0 20px 60px rgba(0,0,0,.7);
+    display:block;
+  }
+  .lightbox-close{
+    position:absolute;
+    top:-16px; right:-16px;
+    width:40px; height:40px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:50%;
+    background: var(--gold);
+    color: var(--ink);
+    font-size:20px;
+    border:none;
+    cursor:pointer;
+    box-shadow: 0 6px 16px rgba(0,0,0,.5);
+  }
+  .lightbox-close:active{ transform: scale(.94); }
+
+  /* ============ DESKTOP / WIDE HERO: horizontal split ============ */
+  @media (min-width:900px){
+    .hero{ padding-left: clamp(28px,5vw,64px); padding-right: clamp(28px,5vw,64px); }
+    .hero-main{
+      flex-direction:row;
+      align-items:center;
+      justify-content:center;
+      gap: clamp(48px,6vw,96px);
+      max-width:1180px;
+      margin:0 auto;
+    }
+    .hero-visual{ flex:1 1 420px; min-width:0; max-width:520px; }
+    .stack-wrap{ margin:0; max-width:520px; height:420px; }
+    .hero-content{
+      flex:1 1 400px;
+      min-width:0;
+      max-width:540px;
+      align-items:center;
+    }
+    .event-bar{
+      margin: clamp(30px,5vw,40px) 0 0 0;
+      max-width:100%;
+    }
+    .hero-sponsors-desktop{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: clamp(20px,3vw,28px);
+      margin-bottom: clamp(26px,4vw,36px);
+    }
+    .hero-content .hero-presents-wrap,
+    .hero-content .sponsor-tier-powered{
+      display:none;
+    }
+  }
+
+  /* ============ HERO FLYER: one-time flourish + ambient sparkle ============ */
+  .hero-flyers{
+    position:absolute;
+    inset:0;
+    z-index:3;
+    overflow:visible;
+    pointer-events:none;
+  }
+  .flyer-main{
+    position:absolute;
+    top:20%; left:-8%;
+    font-size: clamp(26px,6.5vw,38px);
+    color: var(--gold-light);
+    text-shadow: 0 0 16px rgba(255,225,77,.85), 0 0 32px rgba(217,169,44,.5);
+    opacity:0;
+    will-change: transform, opacity, left, top;
+  }
+  .flyer-trail{
+    position:absolute;
+    width:5px; height:5px;
+    border-radius:50%;
+    background: var(--fuchsia);
+    box-shadow: 0 0 9px 2px rgba(255,225,77,.6);
+    opacity:0;
+    will-change: transform, opacity;
+  }
+  .ambient-spark{
+    position:absolute;
+    border-radius:50%;
+    background: var(--gold-light);
+    opacity:0;
+    animation: ambientTwinkle 3.4s ease-in-out infinite;
+  }
+  @keyframes ambientTwinkle{
+    0%,100%{ opacity:0; transform:scale(.6); }
+    50%{ opacity:.85; transform:scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .flyer-main, .flyer-trail{ display:none; }
+    .ambient-spark{ animation: none; opacity:.5; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .keyword-track{ animation: none; }
+    .scroll-cue{ animation: none; }
+    .cat-flip{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero-flyers" id="heroFlyers" aria-hidden="true">
+    <span class="flyer-main" id="flyerMain">✦</span>
+  </div>
+
+  <div class="hero-main">
+  <div class="hero-visual">
+  <!-- SPONSORS: uncomment when real sponsor logos are ready
+  <div class="hero-sponsors-desktop">
+    <div class="sponsor-tier">
+      <div class="sponsor-logo-slot sponsor-logo-slot--title"><span>Logo</span></div>
+      <p class="sponsor-tier-label">Presents</p>
+    </div>
+    <div class="sponsor-tier">
+      <p class="sponsor-tier-label">Powered by</p>
+      <div class="sponsor-logo-row">
+        <div class="sponsor-logo-slot"><span>Logo</span></div>
+        <div class="sponsor-logo-slot"><span>Logo</span></div>
+      </div>
+    </div>
+  </div>
+  -->
+  <div class="stack-wrap" id="stackWrap">
+    <div class="stack-pos" data-fx="-92" data-fy="22" data-frot="-18">
+      <div class="stack-card" data-tilt data-lightbox role="button" tabindex="0" aria-label="View larger photo: women shopping at a festive clothing stall">
+        <img src="images/event-shopping-1.jpg" alt="Women shopping at a festive clothing stall at Wonder Women Utsav">
+        <span class="stack-zoom-icon" aria-hidden="true"><i class='bx bx-expand'></i></span>
+      </div>
+    </div>
+    <div class="stack-pos" data-fx="-46" data-fy="4" data-frot="-9">
+      <div class="stack-card" data-tilt data-lightbox role="button" tabindex="0" aria-label="View larger photo: statement jewellery on display">
+        <img src="images/event-jewellery-1.jpg" alt="Statement jewellery and accessories on display at Wonder Women Utsav">
+        <span class="stack-zoom-icon" aria-hidden="true"><i class='bx bx-expand'></i></span>
+      </div>
+    </div>
+    <div class="stack-pos" data-fx="0" data-fy="-8" data-frot="0">
+      <div class="stack-card no-crop" data-tilt data-lightbox role="button" tabindex="0" aria-label="View larger photo: women connecting over festive decor at a stall">
+        <img class="stack-bg-blur" src="images/event-connect-1.jpg" alt="" aria-hidden="true">
+        <img class="stack-main-img" src="images/event-connect-1.jpg" alt="Women smiling and connecting over festive decor at a Wonder Women Utsav stall">
+        <span class="stack-zoom-icon" aria-hidden="true"><i class='bx bx-expand'></i></span>
+      </div>
+    </div>
+    <div class="stack-pos" data-fx="46" data-fy="4" data-frot="9">
+      <div class="stack-card" data-tilt data-lightbox role="button" tabindex="0" aria-label="View larger photo: festive decor and door hangings">
+        <img src="images/event-decor-1.jpg" alt="Colourful festive decor and door hangings at Wonder Women Utsav">
+        <span class="stack-zoom-icon" aria-hidden="true"><i class='bx bx-expand'></i></span>
+      </div>
+    </div>
+    <div class="stack-pos" data-fx="92" data-fy="22" data-frot="18">
+      <div class="stack-card" data-tilt data-lightbox role="button" tabindex="0" aria-label="View larger photo: mother and daughter shopping at a boutique stall">
+        <img src="images/event-boutique-1.jpg" alt="Mother and daughter shopping at a boutique stall at Wonder Women Utsav">
+        <span class="stack-zoom-icon" aria-hidden="true"><i class='bx bx-expand'></i></span>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="hero-content">
+  <div class="wordmark-block">
+    <!-- SPONSORS: uncomment when real sponsor logos are ready
+    <div class="hero-presents-wrap">
+      <div class="sponsor-tier">
+        <div class="sponsor-logo-slot sponsor-logo-slot--title"><span>Logo</span></div>
+        <p class="sponsor-tier-label">Presents</p>
+      </div>
+    </div>
+    -->
+    <img class="logo-img" src="images/wwu-logo.png" alt="Wonder Women Utsav">
+    <h1 class="sr-only">Wonder Women Utsav</h1>
+
+    <!-- SPONSORS: uncomment when real sponsor logos are ready
+    <div class="sponsor-tier sponsor-tier-powered">
+      <p class="sponsor-tier-label">Powered by</p>
+      <div class="sponsor-logo-row">
+        <div class="sponsor-logo-slot"><span>Logo</span></div>
+        <div class="sponsor-logo-slot"><span>Logo</span></div>
+      </div>
+    </div>
+    -->
+
+    <p class="tagline">Where Women Shop, Celebrate &amp; Connect ! 💕</p>
+  </div>
+
+  <div class="cta-row">
+    <a class="cta cta-primary" href="https://drive.google.com/file/d/1Lb-9YAq3hSgCPG3eM9e-E6PZQBrs9pAO/view?usp=sharing" target="_blank" rel="noopener">
+      <i class='bx bx-store'></i> Book Your Booth
+    </a>
+    <a class="cta cta-secondary" href="https://drive.google.com/file/d/1co8pd9F6ivAfawPlE9IChxUg27s7LL74/view?usp=sharing" target="_blank" rel="noopener">
+      <i class='bx bx-gift'></i> Sponsorship Proposal
+    </a>
+  </div>
+
+  <div class="cta-row-secondary">
+    <a class="cta-mini" href="https://instagram.com/wonder_women_utsav" target="_blank" rel="noopener">
+      <i class='bx bxl-instagram'></i> Instagram
+    </a>
+    <a class="cta-mini" href="https://facebook.com/wonder_women_utsav" target="_blank" rel="noopener">
+      <i class='bx bxl-facebook-square'></i> Facebook
+    </a>
+    <a class="cta-mini" href="tel:+919810236151">
+      <i class='bx bx-phone-call'></i> Call Karuna Anand
+    </a>
+  </div>
+
+  <div class="event-bar">
+    <div class="event-top">
+      <span class="event-date"><i class='bx bx-calendar-star'></i> Saturday, 31 October 2026</span>
+      <span class="event-divider">•</span>
+      <span class="event-time"><i class='bx bx-time-five'></i> 10 AM – 8 PM</span>
+    </div>
+    <div class="event-venue"><i class='bx bx-map-pin'></i><span>Sunder Bhawan, Community Centre, Sunder Vihar, New Delhi</span></div>
+    <span class="event-free">Free Entry</span>
+  </div>
+  </div>
+  </div>
+
+  <div class="keyword-strip">
+    <div class="keyword-track" id="keywordTrack">
+      <!-- populated twice via JS for seamless loop -->
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true"><i class='bx bx-chevron-down'></i></div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <div class="inside-head">
+    <p class="inside-eyebrow">A Glimpse Inside</p>
+    <h2 class="inside-title">Our <span class="accent2">Gallery</span></h2>
+    <p class="inside-sub">Moments from Wonder Women Utsav — tap any photo to enlarge ✨</p>
+  </div>
+
+  <div class="gallery-filters" id="galleryFilters">
+    <button class="gallery-chip is-active" data-filter="all">All</button>
+    <button class="gallery-chip" data-filter="venue">Venue</button>
+    <button class="gallery-chip" data-filter="fashion">Fashion</button>
+    <button class="gallery-chip" data-filter="jewellery">Jewellery</button>
+    <button class="gallery-chip" data-filter="beauty">Beauty</button>
+    <button class="gallery-chip" data-filter="decor">Decor & Gifting</button>
+    <button class="gallery-chip" data-filter="food">Food</button>
+    <button class="gallery-chip" data-filter="crowd">Crowd</button>
+  </div>
+
+  <div class="carousel-wrap">
+    <div class="carousel" id="carousel"></div>
+    <button class="carousel-arrow" id="carouselPrev" aria-label="Previous photo"><i class='bx bx-chevron-left'></i></button>
+    <button class="carousel-arrow" id="carouselNext" aria-label="Next photo"><i class='bx bx-chevron-right'></i></button>
+  </div>
+</section>
+
+<!-- ============ INSTAGRAM FEED ============ -->
+<section class="insta-feed" id="instagram">
+  <div class="inside-head">
+    <p class="inside-eyebrow">Follow Along</p>
+    <h2 class="inside-title">Latest on <span class="accent2">Instagram</span></h2>
+    <p class="inside-sub">Straight from @wonder_women_utsav — tap a post to see it on Instagram</p>
+  </div>
+
+  <div class="insta-grid" id="instaGrid">
+    <div class="insta-embed-wrap">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Dc0BBIPgcVg/" data-instgrm-version="14" style="background:#FFF; border-radius:15px; margin:0; max-width:100%; min-width:280px; padding:0; width:100%;">
+        <a href="https://www.instagram.com/p/Dc0BBIPgcVg/" target="_blank" rel="noopener">View this post on Instagram</a>
+      </blockquote>
+    </div>
+  </div>
+
+  <div class="insta-follow-wrap">
+    <a class="insta-follow-btn" href="https://instagram.com/wonder_women_utsav" target="_blank" rel="noopener">
+      <i class='bx bxl-instagram'></i> Follow @wonder_women_utsav
+    </a>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INSIDE ============ -->
+<section class="inside" id="inside">
+  <div class="inside-head">
+    <p class="inside-eyebrow">Step Inside the Festival</p>
+    <h2 class="inside-title">What's <span class="accent2">Inside</span></h2>
+    <p class="inside-sub">Tap a card to peek at what's waiting for you ✨</p>
+  </div>
+
+  <div class="cat-grid" id="catGrid"></div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <p class="footer-supported-label">Proudly Supported By</p>
+  <div class="footer-badge">
+    <img src="images/sunder-vihar-society-logo.png" alt="Supported by Sunder Vihar Society">
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="https://instagram.com/wonder_women_utsav" target="_blank" rel="noopener">
+      <i class='bx bxl-instagram'></i> @wonder_women_utsav
+    </a>
+    <span class="footer-divider">•</span>
+    <a class="footer-link" href="https://facebook.com/wonder_women_utsav" target="_blank" rel="noopener">
+      <i class='bx bxl-facebook-square'></i> @wonder_women_utsav
+    </a>
+    <span class="footer-divider">•</span>
+    <a class="footer-link" href="tel:+919810236151">
+      <i class='bx bx-phone-call'></i> +91 98102 36151
+    </a>
+  </div>
+  <p class="footer-credit">© 2026 Wonder Women Utsav. All rights reserved.</p>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged photo">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close photo"><i class='bx bx-x'></i></button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
+<script async src="https://www.instagram.com/embed.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Hero flyer: gold flourish sweeps across on load + ambient sparkle ---------- */
+  (function(){
+    var flyerWrap = document.getElementById('heroFlyers');
+    if (!flyerWrap) return;
+
+    // Ambient twinkling sparkles: cheap, CSS-driven, always on (also fine under reduced-motion).
+    var ambientCount = 7;
+    for (var a = 0; a < ambientCount; a++){
+      var dot = document.createElement('span');
+      dot.className = 'ambient-spark';
+      var size = 3 + Math.random() * 3;
+      dot.style.width = size + 'px';
+      dot.style.height = size + 'px';
+      dot.style.top = (8 + Math.random() * 70) + '%';
+      dot.style.left = (5 + Math.random() * 88) + '%';
+      dot.style.animationDelay = (Math.random() * 3.4).toFixed(2) + 's';
+      flyerWrap.appendChild(dot);
+    }
+
+    var main = document.getElementById('flyerMain');
+    if (reduceMotion || !window.gsap || !main) return;
+
+    // A handful of small sparkles that pulse along the flight path, timed to the flyer passing through.
+    var trailSpots = [
+      { left: '6%',  top: '24%', delay: 0.15 },
+      { left: '20%', top: '14%', delay: 0.35 },
+      { left: '34%', top: '6%',  delay: 0.55 },
+      { left: '50%', top: '9%',  delay: 0.75 },
+      { left: '66%', top: '16%', delay: 0.95 },
+      { left: '82%', top: '24%', delay: 1.15 }
+    ];
+    var trails = trailSpots.map(function(spot){
+      var t = document.createElement('span');
+      t.className = 'flyer-trail';
+      t.style.left = spot.left;
+      t.style.top = spot.top;
+      flyerWrap.appendChild(t);
+      return t;
+    });
+
+    gsap.set(main, { left: '-8%', top: '22%', rotation: -15, scale: 0.7, opacity: 0 });
+
+    var tl = gsap.timeline({ delay: 0.25 });
+
+    tl.to(main, { opacity: 1, duration: 0.25 }, 0)
+      .to(main, { left: '32%', top: '6%', rotation: 10, scale: 1.1, duration: 0.9, ease: 'power2.out' }, 0)
+      .to(main, { left: '66%', top: '17%', rotation: -8, scale: 1, duration: 0.8, ease: 'power1.inOut' }, 0.9)
+      .to(main, { left: '112%', top: '27%', rotation: 18, scale: 0.7, opacity: 0, duration: 0.7, ease: 'power2.in' }, 1.7);
+
+    trails.forEach(function(t, i){
+      gsap.set(t, { opacity: 0, scale: 0.4 });
+      var d = trailSpots[i].delay + 0.25;
+      gsap.timeline({ delay: d })
+        .to(t, { opacity: 1, scale: 1, duration: 0.25, ease: 'power1.out' })
+        .to(t, { opacity: 0, scale: 0.3, duration: 0.45, ease: 'power1.in' });
+    });
+  })();
+
+  /* ---------- Keyword tag strip ---------- */
+  var keywords = ["Women's Festival","Exhibition","Shopping Festival","Fashion","Jewellery","Accessories","Boutique","Cosmetics","Beauty","Lifestyle","Festive Shopping","Women Entrepreneurs","Pop-up Market","Events"];
+  var track = document.getElementById('keywordTrack');
+  if (track){
+    var html = keywords.concat(keywords).map(function(k){ return '<span class="tag">'+k+'</span>'; }).join('');
+    track.innerHTML = html;
+  }
+
+  /* ---------- Categories data ---------- */
+  var categories = [
+    { emoji:"👗", label:"Fashion & Boutique Collections", desc:"Curated ethnic & western styles from top boutiques." },
+    { emoji:"💎", label:"Jewellery & Accessories", desc:"Statement jewellery, bags & accessories for every look." },
+    { emoji:"💄", label:"Beauty & Cosmetics", desc:"Makeup, skincare & beauty brands to help you glow." },
+    { emoji:"🏺", label:"Lifestyle Products", desc:"Home decor, wellness & everyday lifestyle finds." },
+    { emoji:"🪔", label:"Festive Shopping", desc:"Diwali specials, décor & gifting picks for the season." },
+    { emoji:"👩‍💼", label:"Homegrown & Women-led Brands", desc:"Supporting women entrepreneurs & local businesses." },
+    { emoji:"🍽️", label:"Food, Entertainment & Celebrations", desc:"Delicious food stalls, live music & celebrations." },
+    { emoji:"🎉", label:"Fun Activities & Experiences", desc:"Games, experiences & fun for a joyful day out." }
+  ];
+
+  var grid = document.getElementById('catGrid');
+  categories.forEach(function(cat, i){
+    var card = document.createElement('div');
+    card.className = 'cat-tilt';
+    card.setAttribute('data-tilt-cat','');
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('aria-pressed','false');
+    card.setAttribute('aria-label', cat.label + ' — tap to see details');
+
+    card.innerHTML =
+      '<div class="cat-flip">' +
+        '<div class="cat-face cat-front">' +
+          '<div class="cat-emoji" aria-hidden="true">'+cat.emoji+'</div>' +
+          '<div class="cat-label">'+cat.label+'</div>' +
+          '<div class="cat-tap-hint">Tap to peek</div>' +
+        '</div>' +
+        '<div class="cat-face cat-back">' +
+          '<div class="cat-back-emoji" aria-hidden="true">'+cat.emoji+'</div>' +
+          '<div class="cat-back-desc">'+cat.desc+'</div>' +
+        '</div>' +
+      '</div>';
+
+    function toggle(){
+      var isFlipped = card.classList.toggle('flipped');
+      card.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
+    }
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        toggle();
+      }
+    });
+
+    grid.appendChild(card);
+  });
+
+  /* ---------- Lightbox for hero photo cards ---------- */
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxClose = document.getElementById('lightboxClose');
+  var lastFocused = null;
+
+  function openLightbox(card){
+    var img = card.querySelector('.stack-main-img') || card.querySelector('img');
+    if (!img || !lightbox || !lightboxImg) return;
+    lightboxImg.src = img.getAttribute('src');
+    lightboxImg.alt = img.getAttribute('alt') || '';
+    lastFocused = card;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
+  }
+  function closeLightbox(){
+    if (!lightbox) return;
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lightboxImg.src = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  document.querySelectorAll('[data-lightbox]').forEach(function(card){
+    card.addEventListener('click', function(){ openLightbox(card); });
+    card.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        openLightbox(card);
+      }
+    });
+  });
+  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if (lightbox){
+    lightbox.addEventListener('click', function(e){
+      if (e.target === lightbox) closeLightbox();
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && lightbox && lightbox.classList.contains('open')) closeLightbox();
+  });
+
+  /* ---------- Vanilla-Tilt ---------- */
+  if (window.VanillaTilt){
+    VanillaTilt.init(document.querySelectorAll('.stack-card'), {
+      max: 12,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.25,
+      scale: 1.02,
+      gyroscope: false
+    });
+    VanillaTilt.init(document.querySelectorAll('[data-tilt-cat]'), {
+      max: 7,
+      speed: 400,
+      glare: false,
+      scale: 1.02,
+      gyroscope: false
+    });
+  }
+
+  /* ---------- GSAP entrance: fan the card stack ---------- */
+  var positions = document.querySelectorAll('.stack-pos');
+  if (window.gsap && !reduceMotion){
+    positions.forEach(function(el, i){
+      var fx = parseFloat(el.getAttribute('data-fx')) || 0;
+      var fy = parseFloat(el.getAttribute('data-fy')) || 0;
+      var frot = parseFloat(el.getAttribute('data-frot')) || 0;
+
+      gsap.set(el, { xPercent:-50, x:0, y:70, rotation:0, scale:.6, opacity:0 });
+      gsap.to(el, {
+        x: fx, y: fy, rotation: frot, scale: 1, opacity: 1,
+        duration: 1.1,
+        delay: 0.15 + i*0.14,
+        ease: "back.out(1.5)"
+      });
+    });
+  } else {
+    positions.forEach(function(el){
+      var fx = parseFloat(el.getAttribute('data-fx')) || 0;
+      var fy = parseFloat(el.getAttribute('data-fy')) || 0;
+      var frot = parseFloat(el.getAttribute('data-frot')) || 0;
+      el.style.transform = 'translate(-50%,0) translate('+fx+'px,'+fy+'px) rotate('+frot+'deg)';
+      el.style.opacity = '1';
+    });
+  }
+
+  /* ---------- Periodic shuffle: cards gather, swap photos, re-fan ---------- */
+  if (window.gsap && !reduceMotion && positions.length){
+    var posArr = Array.prototype.slice.call(positions);
+    var shuffleTimer = null;
+    var shuffleRunning = false;
+
+    function shuffleDeck(){
+      if (shuffleRunning) return;
+      shuffleRunning = true;
+      var cards = posArr.map(function(p){ return p.querySelector('.stack-card'); });
+
+      gsap.timeline({ onComplete: function(){ shuffleRunning = false; } })
+        .to(posArr, {
+          x: 0,
+          y: function(i){ return i % 2 === 0 ? -14 : 14; },
+          rotation: function(i){ return i % 2 === 0 ? -5 : 5; },
+          scale: 0.8,
+          opacity: 0.4,
+          duration: 0.45,
+          stagger: 0.03,
+          ease: 'power2.inOut'
+        })
+        .add(function(){
+          var shuffled = cards.slice();
+          for (var i = shuffled.length - 1; i > 0; i--){
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = tmp;
+          }
+          posArr.forEach(function(pos, idx){ pos.appendChild(shuffled[idx]); });
+        })
+        .to(posArr, {
+          x: function(i){ return parseFloat(posArr[i].getAttribute('data-fx')) || 0; },
+          y: function(i){ return parseFloat(posArr[i].getAttribute('data-fy')) || 0; },
+          rotation: function(i){ return parseFloat(posArr[i].getAttribute('data-frot')) || 0; },
+          scale: 1,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.06,
+          ease: 'back.out(1.6)'
+        });
+    }
+
+    var heroEl = document.getElementById('hero');
+    if (window.IntersectionObserver && heroEl){
+      var shuffleObserver = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting){
+            if (!shuffleTimer) shuffleTimer = setInterval(shuffleDeck, 6000);
+          } else if (shuffleTimer){
+            clearInterval(shuffleTimer);
+            shuffleTimer = null;
+          }
+        });
+      }, { threshold: 0.3 });
+      shuffleObserver.observe(heroEl);
+    } else {
+      shuffleTimer = setInterval(shuffleDeck, 6000);
+    }
+  }
+
+  /* ---------- Gallery: coverflow carousel ---------- */
+  (function(){
+    var carouselEl = document.getElementById('carousel');
+    var prevBtn = document.getElementById('carouselPrev');
+    var nextBtn = document.getElementById('carouselNext');
+    var filterBar = document.getElementById('galleryFilters');
+    if (!carouselEl || !filterBar) return;
+
+    var galleryPhotos = [
+      { src:'gallery-01-venue.jpg', alt:'Sunder Bhawan Community Centre, Sunder Vihar — the Wonder Women Utsav venue', cat:'venue', caption:'Sunder Bhawan, Community Centre — Our Venue' },
+      { src:'gallery-02-bakery.jpg', alt:'A home-baked cookies and cupcakes stall at Wonder Women Utsav', cat:'food' },
+      { src:'gallery-03-jewellery.jpg', alt:'Jewellery and accessories stall at Wonder Women Utsav', cat:'jewellery' },
+      { src:'gallery-04-accessories.jpg', alt:'Floral hair accessories and gifting stall at Wonder Women Utsav', cat:'decor' },
+      { src:'gallery-05-beauty.jpg', alt:'Beauty and cosmetics stall at Wonder Women Utsav', cat:'beauty' },
+      { src:'gallery-06-crowd.jpg', alt:'A lively crowd of shoppers browsing stalls at Wonder Women Utsav', cat:'crowd' },
+      { src:'gallery-07-festive.jpg', alt:'Shoppers browsing a festive candles and gifting stall at Wonder Women Utsav', cat:'decor' },
+      { src:'gallery-08-candid.jpg', alt:'A candid, cheerful moment at a stall at Wonder Women Utsav', cat:'crowd' },
+      { src:'gallery-09-group.jpg', alt:'Three women smiling together at Wonder Women Utsav', cat:'fashion' },
+      { src:'gallery-10-menswear.jpg', alt:"Men's ethnic wear stall at Wonder Women Utsav", cat:'fashion' },
+      { src:'gallery-11-giftboxes.jpg', alt:'Festive gift boxes and dry fruits stall at Wonder Women Utsav', cat:'food' },
+      { src:'gallery-12-outdoor.jpg', alt:'Outdoor stalls with festive Diwali items at Wonder Women Utsav', cat:'fashion' },
+      { src:'gallery-13-food.jpg', alt:'Amritsari kulcha food stall at Wonder Women Utsav', cat:'food' },
+      { src:'gallery-14-furnishing.jpg', alt:'Home furnishing and bedsheets stall at Wonder Women Utsav', cat:'decor' },
+      { src:'gallery-15-decor.jpg', alt:'A candles and festive gifting stall at Wonder Women Utsav', cat:'decor' },
+      { src:'gallery-16-diwali.jpg', alt:'A Diwali decoration stall at Wonder Women Utsav', cat:'decor' },
+      { src:'gallery-17-bedding.jpg', alt:'Shoppers gathered around a bedding stall at Wonder Women Utsav', cat:'crowd' },
+      { src:'gallery-18-outdoor2.jpg', alt:'Outdoor fashion and astrology stalls at Wonder Women Utsav', cat:'fashion' },
+      { src:'gallery-19-fashion.jpg', alt:'Shoppers browsing a clothing rack at Wonder Women Utsav', cat:'fashion' },
+      { src:'gallery-20-vendors.jpg', alt:'Three women entrepreneurs at their candle and gifting stall at Wonder Women Utsav', cat:'decor' },
+      { src:'gallery-21-prizes.jpg', alt:'A shopper with her hourly prize gift bag at Wonder Women Utsav', cat:'decor', caption:'Exciting Prizes Await Every Hour!' }
+    ];
+
+    var activeFilter = 'all';
+    var activeIndex = 0;
+    var currentList = [];
+    var touchStartX = null;
+
+    function getFiltered(){
+      return activeFilter === 'all' ? galleryPhotos : galleryPhotos.filter(function(p){ return p.cat === activeFilter; });
+    }
+
+    function openLightboxFor(photo){
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lightboxImg');
+      var closeBtn = document.getElementById('lightboxClose');
+      if (!lb || !lbImg) return;
+      lbImg.src = 'images/' + photo.src;
+      lbImg.alt = photo.alt;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function onSlideClick(i){
+      if (i === activeIndex){
+        openLightboxFor(currentList[i]);
+      } else {
+        activeIndex = i;
+        positionSlides();
+      }
+    }
+
+    function renderCarousel(){
+      currentList = getFiltered();
+      if (activeIndex >= currentList.length) activeIndex = 0;
+      carouselEl.innerHTML = '';
+
+      currentList.forEach(function(photo, i){
+        var slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        slide.setAttribute('role', 'button');
+        slide.setAttribute('tabindex', '0');
+        slide.setAttribute('aria-label', 'View larger photo: ' + photo.alt);
+
+        var img = document.createElement('img');
+        img.src = 'images/' + photo.src;
+        img.alt = photo.alt;
+        slide.appendChild(img);
+
+        if (photo.caption){
+          var cap = document.createElement('span');
+          cap.className = 'carousel-caption';
+          cap.textContent = photo.caption;
+          slide.appendChild(cap);
+        }
+
+        slide.addEventListener('click', function(){ onSlideClick(i); });
+        slide.addEventListener('keydown', function(e){
+          if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); onSlideClick(i); }
+        });
+        if (window.gsap) gsap.set(slide, { xPercent: -50, yPercent: -50 });
+        carouselEl.appendChild(slide);
+      });
+
+      positionSlides();
+    }
+
+    function positionSlides(){
+      var slides = carouselEl.querySelectorAll('.carousel-slide');
+      var n = slides.length;
+      if (!n) return;
+      var isNarrow = window.innerWidth < 640;
+      var unit = carouselEl.clientWidth * (isNarrow ? 0.30 : 0.225);
+
+      slides.forEach(function(slide, i){
+        var dist = i - activeIndex;
+        if (dist > n / 2) dist -= n;
+        if (dist < -n / 2) dist += n;
+        var absDist = Math.abs(dist);
+
+        var tx, scale, opacity, z;
+        if (absDist === 0){ tx = 0; scale = 1; opacity = 1; z = 5; }
+        else if (absDist === 1){ tx = dist * unit; scale = .78; opacity = .8; z = 4; }
+        else if (absDist === 2){ tx = dist * unit * 1.7; scale = .6; opacity = .4; z = 3; }
+        else { tx = dist * unit * 2.1; scale = .5; opacity = 0; z = 1; }
+
+        slide.classList.toggle('is-active', absDist === 0);
+        slide.style.zIndex = z;
+        slide.style.pointerEvents = absDist <= 2 ? 'auto' : 'none';
+
+        if (window.gsap){
+          gsap.to(slide, { x: tx, scale: scale, opacity: opacity, duration: reduceMotion ? 0 : 0.55, ease: 'power2.out' });
+        } else {
+          slide.style.transform = 'translate(-50%,-50%) translateX(' + tx + 'px) scale(' + scale + ')';
+          slide.style.opacity = opacity;
+        }
+      });
+    }
+
+    function goPrev(){ if (!currentList.length) return; activeIndex = (activeIndex - 1 + currentList.length) % currentList.length; positionSlides(); }
+    function goNext(){ if (!currentList.length) return; activeIndex = (activeIndex + 1) % currentList.length; positionSlides(); }
+
+    if (prevBtn) prevBtn.addEventListener('click', goPrev);
+    if (nextBtn) nextBtn.addEventListener('click', goNext);
+
+    filterBar.addEventListener('click', function(e){
+      var chip = e.target.closest('.gallery-chip');
+      if (!chip) return;
+      filterBar.querySelectorAll('.gallery-chip').forEach(function(c){ c.classList.remove('is-active'); });
+      chip.classList.add('is-active');
+      activeFilter = chip.getAttribute('data-filter');
+      activeIndex = 0;
+      renderCarousel();
+    });
+
+    carouselEl.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; }, { passive: true });
+    carouselEl.addEventListener('touchend', function(e){
+      if (touchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 40){ dx < 0 ? goNext() : goPrev(); }
+      touchStartX = null;
+    }, { passive: true });
+
+    var resizeTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(positionSlides, 150);
+    });
+
+    renderCarousel();
+  })();
+})();
+</script>
+</body>
+</html>
