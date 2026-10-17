@@ -1243,8 +1243,7 @@
     <a href="#exhibitors">Exhibitors</a>
     <a href="#experience">Experience</a>
     <a href="#gallery">Gallery</a>
-    <a href="#visit">Visit</a>
-    <a href="#rsvp">RSVP</a>
+    <a href="#rsvp">Register</a>
     <a href="#partner">Partner With Us</a>
   </nav>
   <div class="nav-cta">
@@ -1261,8 +1260,7 @@
   <a href="#exhibitors">Exhibitors</a>
   <a href="#experience">Experience</a>
   <a href="#gallery">Gallery</a>
-  <a href="#visit">Visit</a>
-  <a href="#rsvp">Confirm Your Visit</a>
+  <a href="#rsvp">Register</a>
   <a href="#partner">Partner With Us</a>
   <a class="btn btn-primary" href="https://drive.google.com/file/d/1Lb-9YAq3hSgCPG3eM9e-E6PZQBrs9pAO/view?usp=sharing" target="_blank" rel="noopener">Reserve Your Space</a>
 </div>
@@ -1312,8 +1310,8 @@
       </div>
 
       <div class="hero-rsvp">
-        <a class="btn btn-secondary" href="#rsvp"><i class='bx bx-check-circle'></i> Confirm Your Visit</a>
-        <span class="hero-rsvp-note">Visiting? RSVP in 20 seconds</span>
+        <a class="btn btn-secondary" href="#rsvp"><i class='bx bx-check-circle'></i> Register Now</a>
+        <span class="hero-rsvp-note">Free visitor registration &middot; takes 20 seconds</span>
       </div>
     </div>
 
@@ -1497,19 +1495,19 @@
   <div class="container">
     <div class="rsvp-grid">
       <div class="rsvp-copy">
-        <p class="eyebrow align-left">Confirm Your Visit</p>
+        <p class="eyebrow align-left">Visitor Registration</p>
         <h2>We&rsquo;re Saving <em>a Place</em> for You</h2>
-        <p>Entry is free and open to all. Let us know you&rsquo;re coming and we&rsquo;ll send your confirmation straight to your phone and inbox.</p>
+        <p>Entry is free and open to all. Let us know you&rsquo;re coming and we&rsquo;ll send your confirmation straight to your inbox.</p>
         <div class="rsvp-points">
           <div class="rsvp-point"><i class='bx bx-calendar-star'></i><div><strong>Saturday, 31 October 2026</strong><span>10 AM &ndash; 8 PM, come any time</span></div></div>
           <div class="rsvp-point"><i class='bx bx-map-pin'></i><div><strong>Sunder Bhawan</strong><span>Community Centre, Sunder Vihar, New Delhi</span></div></div>
-          <div class="rsvp-point"><i class='bx bxl-whatsapp'></i><div><strong>Instant confirmation</strong><span>On WhatsApp and email, as soon as you register</span></div></div>
+          <div class="rsvp-point"><i class='bx bx-envelope'></i><div><strong>Instant confirmation</strong><span>By email, as soon as you register</span></div></div>
         </div>
       </div>
 
       <div class="rsvp-card" id="rsvpCard">
         <div class="rsvp-intro">
-          <h3>RSVP for the Utsav</h3>
+          <h3>Register for the Utsav</h3>
           <p class="rsvp-sub">Takes less than a minute.</p>
         </div>
 
@@ -1522,7 +1520,7 @@
 
           <div class="rsvp-row two">
             <div class="rsvp-field" data-field="phone">
-              <label for="rsvpPhone">WhatsApp number</label>
+              <label for="rsvpPhone">Phone number</label>
               <div class="rsvp-input-wrap">
                 <span class="rsvp-prefix">+91</span>
                 <input id="rsvpPhone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="18" required placeholder="98XXXXXXXX">
@@ -1542,14 +1540,14 @@
           </div>
 
           <div class="rsvp-field" data-field="email">
-            <label for="rsvpEmail">Email <span class="opt">(optional)</span></label>
-            <input id="rsvpEmail" name="email" type="email" autocomplete="email" maxlength="120" placeholder="you@example.com">
-            <span class="rsvp-error">That email doesn&rsquo;t look right.</span>
+            <label for="rsvpEmail">Email</label>
+            <input id="rsvpEmail" name="email" type="email" autocomplete="email" maxlength="120" required placeholder="you@example.com">
+            <span class="rsvp-error">Please enter a valid email address.</span>
           </div>
 
           <label class="rsvp-consent">
             <input type="checkbox" id="rsvpConsent" name="consent" checked>
-            <span>Send my confirmation and event updates on WhatsApp.</span>
+            <span>Send my confirmation and event updates by email.</span>
           </label>
 
           <div class="rsvp-hp" aria-hidden="true">
@@ -1560,7 +1558,7 @@
           <div class="rsvp-status" id="rsvpStatus" role="alert"></div>
 
           <button class="btn btn-primary rsvp-submit" type="submit" id="rsvpSubmit">
-            <span class="rsvp-submit-label">Confirm My Visit</span>
+            <span class="rsvp-submit-label">Register Now</span>
           </button>
           <p class="rsvp-fineprint">We only use your details for Wonder Women Utsav updates. No spam.</p>
         </form>
@@ -1574,7 +1572,7 @@
           </div>
           <p class="rsvp-venue"><strong>Sunder Bhawan, Community Centre</strong><br>Sunder Vihar, Paschim Vihar, New Delhi 110087</p>
           <a class="btn btn-primary rsvp-directions" id="rsvpDirections" href="https://www.google.com/maps/dir/?api=1&amp;destination=Community+Centre+Sunder+Vihar+New+Delhi&amp;destination_place_id=ChIJUUZ6i6YFDTkReUAE_jUnqY4" target="_blank" rel="noopener"><i class='bx bx-navigation'></i> Get Directions</a>
-          <button type="button" class="rsvp-again" id="rsvpAgain">RSVP for someone else</button>
+          <button type="button" class="rsvp-again" id="rsvpAgain">Register someone else</button>
         </div>
       </div>
     </div>
@@ -1692,7 +1690,7 @@
     onScroll();
     window.addEventListener('scroll', onScroll, { passive:true });
 
-    var sections = document.querySelectorAll('#hero, #utsav, #exhibitors, #experience, #gallery, #visit, #rsvp, #partner');
+    var sections = document.querySelectorAll('#hero, #utsav, #exhibitors, #experience, #gallery, #rsvp, #partner');
     var links = document.querySelectorAll('.nav-links a');
     if (window.IntersectionObserver && sections.length){
       var io = new IntersectionObserver(function(entries){
@@ -2055,8 +2053,6 @@
   (function initRsvp(){
     /* Paste the Google Apps Script web-app URL here after deploying it
        (Deploy > New deployment > Web app). It ends in /exec. */
-    /* Set to true once WhatsApp confirmations are switched on in the Apps Script. */
-    var WHATSAPP_LIVE = false;
     var RSVP_ENDPOINT ='https://script.google.com/macros/s/AKfycbxYSMwAfNpgCXlfxhHOuspGWO1jDcfejShnR3f42U6grISAWYbhHZ1CI5N9h5W-ATNQ/exec';
 
     var card = document.getElementById('rsvpCard');
@@ -2078,7 +2074,7 @@
       else if (d.length === 11 && d.charAt(0) === '0') d = d.slice(1);
       return /^[6-9]\d{9}$/.test(d) ? d : null;
     }
-    function validEmail(v){ return !v || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+    function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
 
     ['name','phone','email'].forEach(function(n){
       var input = field(n).querySelector('input');
@@ -2087,7 +2083,7 @@
 
     function setLoading(on){
       submitBtn.disabled = on;
-      labelEl.innerHTML = on ? "<i class='bx bx-loader-alt'></i> Confirming&hellip;" : 'Confirm My Visit';
+      labelEl.innerHTML = on ? "<i class='bx bx-loader-alt'></i> Registering&hellip;" : 'Register Now';
     }
 
     form.addEventListener('submit', function(e){
@@ -2106,7 +2102,7 @@
         return;
       }
       if (RSVP_ENDPOINT.indexOf('http') !== 0){
-        showStatus('RSVP is almost ready. Please check back shortly, or call +91 98102 36151.');
+        showStatus('Registration is almost ready. Please check back shortly.');
         return;
       }
 
@@ -2115,7 +2111,7 @@
         phone: phone,
         email: email,
         guests: el('rsvpGuests').value,
-        whatsappConsent: el('rsvpConsent').checked,
+        emailConsent: el('rsvpConsent').checked,
         website: el('rsvpWebsite').value,   /* honeypot: bots fill this, people don't */
         source: location.href
       };
@@ -2135,13 +2131,10 @@
           return;
         }
         document.getElementById('rsvpDoneName').textContent = name.split(' ')[0];
-        var where = [];
-        if (WHATSAPP_LIVE && payload.whatsappConsent) where.push('WhatsApp');
-        if (email) where.push('email');
         var msg = res.duplicate
           ? 'You were already on our list. See you on Saturday, 31 October at Sunder Bhawan.'
           : 'See you on Saturday, 31 October at Sunder Bhawan.';
-        if (where.length) msg += ' A confirmation is on its way to your ' + where.join(' and ') + '.';
+        if (payload.emailConsent) msg += ' A confirmation is on its way to your inbox.';
         document.getElementById('rsvpDoneMsg').textContent = msg;
         var map = document.getElementById('rsvpMap');
         if (map && !map.src) map.src = map.getAttribute('data-src');

@@ -3,8 +3,7 @@
  * ------------------------------------------------------
  * What it does, each time someone submits the RSVP form on the website:
  *   1. Saves the visitor to the "RSVPs" tab of this Google Sheet
- *   2. Emails them a confirmation (if they gave an email)
- *   3. Sends a WhatsApp confirmation (once WhatsApp is switched on, see SETUP.md)
+ *   2. Emails them a confirmation (if they ticked the email box)
  *
  * The same phone number registering twice is not added again.
  */
@@ -27,8 +26,8 @@ var EVENT = {
 var SHEET_ID = '1UsuiqrwG1os7mkBJReAaHIluVX5fymxOwPG2S6vkbvU';
 var SHEET_NAME = 'RSVPs';
 var HEADERS = ['Timestamp', 'Name', 'Phone', 'Email', 'Guests',
-               'WhatsApp OK', 'Email status', 'WhatsApp status', 'Source'];
-var COL = { name: 2, phone: 3, email: 4, guests: 5, consent: 6, emailStatus: 7, waStatus: 8 };
+               'Email updates OK', 'Email status', 'Source'];
+var COL = { name: 2, phone: 3, email: 4, guests: 5, consent: 6, emailStatus: 7 };
 
 // ====== WEB APP ENTRY POINTS ======
 
@@ -47,12 +46,12 @@ function doPost(e) {
     var phone = normalisePhone_(data.phone);
     var email = clean_(data.email, 120).toLowerCase();
     var guests = String(data.guests || '1').replace(/[^0-9+]/g, '').slice(0, 2) || '1';
-    var consent = data.whatsappConsent !== false;
+    var consent = data.emailConsent !== false;
 
     if (name.length < 2) return json_({ ok: false, error: 'Please enter your name.' });
     if (!phone) return json_({ ok: false, error: 'Please enter a valid 10-digit Indian mobile number.' });
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
-      return json_({ ok: false, error: 'That email address doesn’t look right.' });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      return json_({ ok: false, error: 'Please enter a valid email address.' });
     }
 
     var lock = LockService.getScriptLock();
@@ -64,10 +63,10 @@ function doPost(e) {
       if (row) {
         duplicate = true;
         // Fill in an email if they didn't give one the first time.
-        if (email && !sheet.getRange(row, COL.email).getValue()) sheet.getRange(row, COL.email).setValue(email);
+        if (!sheet.getRange(row, COL.email).getValue()) sheet.getRange(row, COL.email).setValue(email);
       } else {
         sheet.appendRow([new Date(), name, "'+91 " + phone, email, guests,
-                         consent ? 'Yes' : 'No', '', '', clean_(data.source, 200)]);
+                         consent ? 'Yes' : 'No', '', clean_(data.source, 200)]);
         row = sheet.getLastRow();
       }
     } finally {
@@ -76,9 +75,7 @@ function doPost(e) {
 
     var person = { name: name, first: name.split(' ')[0], phone: phone, email: email, guests: guests };
 
-    if (email) sheet.getRange(row, COL.emailStatus).setValue(sendEmail_(person));
-    if (consent) sheet.getRange(row, COL.waStatus).setValue(sendWhatsApp_(person));
-    else sheet.getRange(row, COL.waStatus).setValue('No consent');
+    sheet.getRange(row, COL.emailStatus).setValue(consent ? sendEmail_(person) : 'Not sent (box unticked)');
 
     return json_({ ok: true, duplicate: duplicate });
   } catch (err) {
@@ -132,73 +129,6 @@ function sendEmail_(p) {
 function row_(k, v) {
   return '<tr><td style="padding:8px 0;border-top:1px solid #e3dccb;color:#8f8b82;width:80px;vertical-align:top">' + k +
          '</td><td style="padding:8px 0;border-top:1px solid #e3dccb;font-weight:bold">' + v + '</td></tr>';
-}
-
-// ====== WHATSAPP (Meta WhatsApp Cloud API) ======
-// Switched off until these Script Properties are set (Project Settings > Script properties):
-//   WA_TOKEN            permanent access token from Meta
-//   WA_PHONE_NUMBER_ID  the Phone number ID shown in WhatsApp > API Setup
-//   WA_TEMPLATE         approved template name (default: rsvp_confirmation)
-//   WA_LANG             template language code (default: en)
-// The template body must have exactly 1 variable: {{1}} = first name.
-
-function sendWhatsApp_(p) {
-  var props = PropertiesService.getScriptProperties();
-  var token = props.getProperty('WA_TOKEN');
-  var phoneId = props.getProperty('WA_PHONE_NUMBER_ID');
-  if (!token || !phoneId) return 'Pending (WhatsApp not set up yet)';
-  try {
-    var body = {
-      messaging_product: 'whatsapp',
-      to: '91' + p.phone,
-      type: 'template',
-      template: {
-        name: props.getProperty('WA_TEMPLATE') || 'rsvp_confirmation',
-        language: { code: props.getProperty('WA_LANG') || 'en' },
-        components: [{ type: 'body', parameters: [
-          { type: 'text', text: p.first }
-        ]}]
-      }
-    };
-    var res = UrlFetchApp.fetch('https://graph.facebook.com/v21.0/' + phoneId + '/messages', {
-      method: 'post',
-      contentType: 'application/json',
-      headers: { Authorization: 'Bearer ' + token },
-      payload: JSON.stringify(body),
-      muteHttpExceptions: true
-    });
-    var code = res.getResponseCode();
-    if (code >= 200 && code < 300) return 'Sent';
-    var msg = '';
-    try { msg = JSON.parse(res.getContentText()).error.message; } catch (x) { msg = res.getContentText(); }
-    return 'Failed (' + code + '): ' + String(msg).slice(0, 80);
-  } catch (err) {
-    return 'Failed: ' + String(err.message || err).slice(0, 80);
-  }
-}
-
-/**
- * Run this by hand once WhatsApp is switched on: it sends WhatsApp confirmations
- * to everyone who registered before that (status "Pending...") or whose send failed.
- */
-function sendPendingWhatsApp() {
-  var sheet = getSheet_();
-  var last = sheet.getLastRow();
-  if (last < 2) return;
-  var rows = sheet.getRange(2, 1, last - 1, HEADERS.length).getValues();
-  var sent = 0;
-  rows.forEach(function (r, i) {
-    var status = String(r[COL.waStatus - 1]);
-    if (r[COL.consent - 1] !== 'Yes' || status === 'Sent') return;
-    if (status && status.indexOf('Pending') !== 0 && status.indexOf('Failed') !== 0) return;
-    var name = String(r[COL.name - 1]);
-    var p = { name: name, first: name.split(' ')[0], phone: String(r[COL.phone - 1]).replace(/\D/g, '').slice(-10) };
-    var result = sendWhatsApp_(p);
-    sheet.getRange(i + 2, COL.waStatus).setValue(result);
-    if (result === 'Sent') sent++;
-    Utilities.sleep(300);
-  });
-  console.log('WhatsApp confirmations sent: ' + sent);
 }
 
 // ====== HELPERS ======
