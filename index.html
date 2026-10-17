@@ -1053,6 +1053,164 @@
     color: rgba(170,167,160,.7);
   }
 
+  /* ============================================================
+     HERO MOTION
+     One orchestrated opening: photo wipes open from the seam,
+     headline lines rise out of a mask, details settle in.
+     Ambient after that: slow photo crossfade, rising gold sparks,
+     a live countdown and the category ribbon.
+  ============================================================ */
+  .hero-text{ overflow:hidden; }
+  .hero-embers{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    pointer-events:none;
+    z-index:0;
+  }
+  .hero-text > :not(.hero-embers):not(.botanical){ position:relative; z-index:1; }
+
+  /* headline lines rise out of a mask */
+  .hl{
+    display:block;
+    overflow:hidden;
+    padding:.4em .7em .1em 0;
+    margin:-.4em -.7em -.1em 0;
+  }
+  .hl > span{ display:block; will-change:transform; }
+
+  /* photo slideshow */
+  .hero-slides{ position:absolute; inset:0; overflow:hidden; }
+  .hero-slide{
+    position:absolute; inset:0; margin:0;
+    opacity:0;
+    transition: opacity 1.6s ease;
+  }
+  .hero-slide.is-on{ opacity:1; }
+  .hero-slide img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:center 32%;
+    transform-origin: 60% 40%;
+    will-change: transform;
+  }
+  .hero-photo::after{ z-index:1; pointer-events:none; }
+
+  .hero-wipe{
+    position:absolute; top:0; bottom:0; left:0;
+    width:3px;
+    background: linear-gradient(180deg, transparent, var(--champagne) 20%, var(--gold) 80%, transparent);
+    box-shadow: 0 0 18px 4px rgba(199,174,50,.55);
+    opacity:0;
+    z-index:3;
+    pointer-events:none;
+  }
+
+  .hero-dots{
+    position:absolute; right: clamp(16px,3vw,28px); bottom: clamp(16px,3vw,28px);
+    display:flex; gap:6px; z-index:2;
+  }
+  .hero-dots span{
+    width:18px; height:2px;
+    background: rgba(247,243,234,.35);
+    transition: background .4s ease, width .4s ease;
+  }
+  .hero-dots span.is-on{ width:30px; background: var(--gold); }
+
+  /* live countdown */
+  .hero-countdown{
+    position:absolute;
+    left: clamp(16px,3vw,28px);
+    bottom: clamp(16px,3vw,28px);
+    z-index:2;
+    display:flex; flex-direction:column; gap:8px;
+    padding: 12px 16px 12px;
+    background: rgba(5,5,5,.62);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border:1px solid rgba(199,174,50,.4);
+    border-radius:3px;
+  }
+  .hero-countdown[hidden]{ display:none !important; }
+  .cd-label{
+    font-size:10.5px; font-weight:700;
+    letter-spacing:.22em; text-transform:uppercase;
+    color: var(--gold);
+  }
+  .cd-row{ display:flex; gap:14px; }
+  .cd-unit{ display:flex; flex-direction:column; align-items:center; min-width:34px; }
+  .cd-unit b{
+    font-family: var(--serif);
+    font-size: clamp(22px,2.4vw,28px);
+    font-weight:700;
+    line-height:1;
+    color: var(--ivory);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .cd-unit b.tick{ animation: cd-tick .45s ease-out; }
+  @keyframes cd-tick{ from{ opacity:.25; transform: translateY(-4px); } to{ opacity:1; transform:none; } }
+  .cd-unit small{
+    font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+    color: var(--muted); margin-top:5px;
+  }
+
+  /* category ribbon */
+  .hero-marquee{
+    position:relative;
+    overflow:hidden;
+    background: var(--black);
+    border-top:1px solid rgba(199,174,50,.25);
+    border-bottom:1px solid rgba(199,174,50,.12);
+    padding: 15px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .mq-track{ display:flex; width:max-content; animation: mq-scroll 38s linear infinite; }
+  .hero-marquee:hover .mq-track{ animation-play-state: paused; }
+  .mq-set{ display:flex; align-items:center; flex-shrink:0; }
+  .mq-item{
+    font-family: var(--serif);
+    font-style:italic;
+    font-size: clamp(17px,2vw,22px);
+    color: var(--ivory);
+    padding: 0 22px;
+    white-space:nowrap;
+  }
+  .mq-item:nth-child(4n+1){ color: var(--champagne); }
+  .mq-star{
+    width:12px; height:12px; flex:0 0 12px;
+    fill: var(--gold); stroke:none;
+  }
+  @keyframes mq-scroll{ to{ transform: translateX(-50%); } }
+
+  /* gold sheen across primary buttons on hover */
+  .btn{ position:relative; overflow:hidden; isolation:isolate; }
+  .btn-primary::after{
+    content:"";
+    position:absolute; top:0; bottom:0; left:-60%;
+    width:40%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+    transform: skewX(-20deg);
+    z-index:-1;
+    transition: left .6s ease;
+  }
+  .btn-primary:hover::after{ left:120%; }
+
+
+  @media (min-width:900px){
+    .hero-countdown{ top: 104px; bottom:auto; }
+  }
+  @media (max-width:899px){
+    .hero-photo{ min-height:58vh; }
+    .hero-countdown{ padding:10px 12px; }
+    .cd-row{ gap:10px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .mq-track{ animation:none; }
+    .hero-slide{ transition:none; }
+    .cd-unit b.tick{ animation:none; }
+    .btn-primary::after{ display:none; }
+  }
+
   @media (prefers-reduced-motion: reduce){
     .botanical path{ transition:none; stroke-dashoffset:0; }
     .category-card img, .story-card img, .gallery-item img{ transition:none; }
@@ -1115,6 +1273,7 @@
 <section class="hero" id="hero">
   <div class="hero-split">
     <div class="hero-text">
+      <canvas class="hero-embers" id="heroEmbers" aria-hidden="true"></canvas>
       <svg class="botanical hero-botanical" id="heroBotanical" viewBox="0 0 120 200" aria-hidden="true">
         <path d="M60 10 C40 40, 30 90, 60 190 M60 40 C40 55, 25 65, 15 60 M60 70 C82 82, 95 78, 100 65 M60 110 C38 118, 25 130, 22 148 M60 140 C84 150, 96 145, 102 130"/>
       </svg>
@@ -1124,7 +1283,7 @@
         <img src="images/agropure-logo.png" alt="AgroPure" width="255" height="135">
       </div>
 
-      <h1 class="hero-headline">A Festive World<br>Curated <em>Around Her<svg class="thread-star word-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></em></h1>
+      <h1 class="hero-headline"><span class="hl"><span>A Festive World</span></span><span class="hl"><span>Curated <em>Around Her<svg class="thread-star word-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></em></span></span></h1>
 
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://drive.google.com/file/d/1Lb-9YAq3hSgCPG3eM9e-E6PZQBrs9pAO/view?usp=sharing" target="_blank" rel="noopener">Reserve Your Space</a>
@@ -1159,11 +1318,28 @@
     </div>
 
     <div class="hero-photo">
-      <img src="images/event-connect-1.jpg" alt="Women smiling and connecting over a festive decor stall at Wonder Women Utsav" loading="eager">
+      <div class="hero-slides" id="heroSlides">
+        <figure class="hero-slide is-on"><img src="images/event-connect-1.jpg" alt="Women smiling and connecting over a festive decor stall at Wonder Women Utsav" loading="eager"></figure>
+        <figure class="hero-slide"><img src="images/gallery-21-prizes.jpg" alt="A shopper with her hourly prize gift bag at Wonder Women Utsav" loading="lazy"></figure>
+        <figure class="hero-slide"><img src="images/event-shopping-1.jpg" alt="Women shopping at a festive clothing stall at Wonder Women Utsav" loading="lazy"></figure>
+        <figure class="hero-slide"><img src="images/gallery-19-fashion.jpg" alt="Shoppers browsing a clothing rack at Wonder Women Utsav" loading="lazy"></figure>
+      </div>
+      <div class="hero-wipe" aria-hidden="true"></div>
+      <div class="hero-countdown" id="heroCountdown" aria-live="off">
+        <span class="cd-label">Doors open in</span>
+        <div class="cd-row">
+          <div class="cd-unit"><b data-u="d">00</b><small>Days</small></div>
+          <div class="cd-unit"><b data-u="h">00</b><small>Hrs</small></div>
+          <div class="cd-unit"><b data-u="m">00</b><small>Min</small></div>
+          <div class="cd-unit"><b data-u="s">00</b><small>Sec</small></div>
+        </div>
+      </div>
+      <div class="hero-dots" id="heroDots" aria-hidden="true"><span class="is-on"></span><span></span><span></span><span></span></div>
       <div class="divider-runner-track"></div>
       <div class="divider-runner"></div>
     </div>
   </div>
+  <div class="hero-marquee" aria-hidden="true"><div class="mq-track"><div class="mq-set"><span class="mq-item">Fashion</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Jewellery</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Beauty</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Home &amp; Decor</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Food</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Gifting</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Hourly Prizes</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Women-led Brands</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></div><div class="mq-set"><span class="mq-item">Fashion</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Jewellery</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Beauty</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Home &amp; Decor</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Food</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Gifting</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Hourly Prizes</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Women-led Brands</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></div></div></div>
 </section>
 
 <!-- ============================================================
@@ -1725,6 +1901,155 @@
 
     render('all');
   })();
+
+  /* ============================================================
+     HERO MOTION
+  ============================================================ */
+  var heroSection = document.getElementById('hero');
+  function heroOnScreen(){ return !heroSection || heroSection.classList.contains('is-thread-active'); }
+
+  /* ---------- Opening sequence ---------- */
+  var introTl = null;
+  function playIntro(){
+    if (!window.gsap || reduceMotion) return;
+    if (introTl) introTl.kill();
+    gsap.set(['.navbar', '.hero-partner', '.hl > span', '.hero-actions .btn', '.hero-signature',
+              '.hero-event-item', '.hero-rsvp', '.hero-countdown', '.hero-dots', '.hero-marquee', '.hero-slides'],
+             { clearProps: 'all' });
+    introTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .fromTo('.hero-slides', { clipPath: 'inset(0 100% 0 0)' },
+                              { clipPath: 'inset(0 0% 0 0)', duration: 1.5, ease: 'power4.inOut' }, 0.15)
+      .fromTo('.hero-wipe', { left: '0%', opacity: 1 },
+                            { left: '100%', duration: 1.5, ease: 'power4.inOut' }, 0.15)
+      .to('.hero-wipe', { opacity: 0, duration: 0.3 }, 1.6)
+      .from('.navbar', { y: -24, opacity: 0, duration: 0.6 }, 0)
+      .from('.hero-partner', { y: 16, opacity: 0, duration: 0.6 }, 0.3)
+      .from('.hl > span', { yPercent: 115, duration: 1, stagger: 0.14, ease: 'power4.out' }, 0.45)
+      .from('.hero-actions .btn', { y: 18, opacity: 0, duration: 0.6, stagger: 0.08 }, 0.95)
+      .from('.hero-signature', { opacity: 0, x: -10, duration: 0.6 }, 1.1)
+      .from('.hero-event-item', { y: 14, opacity: 0, duration: 0.5, stagger: 0.07 }, 1.2)
+      .from('.hero-rsvp', { y: 12, opacity: 0, duration: 0.5 }, 1.45)
+      .from('.hero-countdown', { y: 20, opacity: 0, duration: 0.7 }, 1.5)
+      .from('.hero-dots', { opacity: 0, duration: 0.5 }, 1.6)
+      .from('.hero-marquee', { opacity: 0, duration: 0.8 }, 1.6);
+    kenBurns(slides[current]);
+  }
+
+  /* ---------- Photo slideshow with slow push-in ---------- */
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.hero-slide'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('#heroDots span'));
+  var current = 0;
+  var drift = [ { x: -2, y: -1 }, { x: 2, y: -2 }, { x: -2, y: 1 }, { x: 1, y: 2 } ];
+  function kenBurns(slide){
+    if (!window.gsap || reduceMotion || !slide) return;
+    var img = slide.querySelector('img');
+    var d = drift[slides.indexOf(slide) % drift.length];
+    gsap.fromTo(img, { scale: 1.14, xPercent: d.x, yPercent: d.y },
+                     { scale: 1.0, xPercent: 0, yPercent: 0, duration: 9, ease: 'none', overwrite: true });
+  }
+  function showSlide(i){
+    slides[current].classList.remove('is-on');
+    if (dots[current]) dots[current].classList.remove('is-on');
+    current = (i + slides.length) % slides.length;
+    slides[current].classList.add('is-on');
+    if (dots[current]) dots[current].classList.add('is-on');
+    kenBurns(slides[current]);
+  }
+  if (slides.length > 1 && !reduceMotion){
+    setInterval(function(){
+      if (document.hidden || !heroOnScreen()) return;
+      showSlide(current + 1);
+    }, 6000);
+  }
+
+  /* ---------- Countdown to doors opening (31 Oct 2026, 10 AM IST) ---------- */
+  (function initCountdown(){
+    var box = document.getElementById('heroCountdown');
+    if (!box) return;
+    var opens = Date.parse('2026-10-31T10:00:00+05:30');
+    var closes = Date.parse('2026-10-31T20:00:00+05:30');
+    var label = box.querySelector('.cd-label');
+    var row = box.querySelector('.cd-row');
+    var cells = {};
+    box.querySelectorAll('b[data-u]').forEach(function(b){ cells[b.getAttribute('data-u')] = b; });
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+    function set(u, v){
+      var c = cells[u];
+      if (c.textContent === v) return;
+      c.textContent = v;
+      c.classList.remove('tick'); void c.offsetWidth; c.classList.add('tick');
+    }
+    function tick(){
+      var now = Date.now();
+      if (now >= closes){ box.hidden = true; return; }
+      if (now >= opens){ label.textContent = 'Happening now · until 8 PM'; row.hidden = true; return; }
+      var t = Math.floor((opens - now) / 1000);
+      set('d', pad(Math.floor(t / 86400)));
+      set('h', pad(Math.floor(t % 86400 / 3600)));
+      set('m', pad(Math.floor(t % 3600 / 60)));
+      set('s', pad(t % 60));
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  /* ---------- Rising gold sparks behind the hero copy ---------- */
+  (function initEmbers(){
+    var canvas = document.getElementById('heroEmbers');
+    if (!canvas || !canvas.getContext || reduceMotion) return;
+    var ctx = canvas.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0, H = 0, sparks = [];
+    var colors = ['199,174,50', '216,201,130', '251,241,207'];
+    function make(randomY){
+      return {
+        x: Math.random() * W,
+        y: randomY ? Math.random() * H : H + 10,
+        r: 0.5 + Math.random() * 1.3,
+        vy: 0.18 + Math.random() * 0.45,
+        sway: 0.4 + Math.random() * 1.2,
+        phase: Math.random() * Math.PI * 2,
+        flicker: 0.02 + Math.random() * 0.05,
+        c: colors[Math.floor(Math.random() * colors.length)]
+      };
+    }
+    function resize(){
+      var rect = canvas.getBoundingClientRect();
+      W = rect.width; H = rect.height;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.min(45, Math.round(W * H / 20000));
+      sparks = [];
+      for (var i = 0; i < n; i++) sparks.push(make(true));
+    }
+    function frame(t){
+      requestAnimationFrame(frame);
+      if (document.hidden || !heroOnScreen()) return;
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < sparks.length; i++){
+        var p = sparks[i];
+        p.y -= p.vy;
+        p.phase += p.flicker;
+        var x = p.x + Math.sin(p.phase) * p.sway * 6;
+        var life = Math.min(1, p.y / (H * 0.35));          /* fade out near the top */
+        var a = (0.45 + 0.55 * (0.5 + 0.5 * Math.sin(p.phase * 3))) * life;
+        if (p.y < -10){ sparks[i] = make(false); continue; }
+        var g = ctx.createRadialGradient(x, p.y, 0, x, p.y, p.r * 3.2);
+        g.addColorStop(0, 'rgba(255,248,220,' + a.toFixed(3) + ')');
+        g.addColorStop(0.35, 'rgba(' + p.c + ',' + (a * 0.75).toFixed(3) + ')');
+        g.addColorStop(1, 'rgba(' + p.c + ',0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(x, p.y, p.r * 3.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(frame);
+  })();
+
+  playIntro();
 
   /* ---------- RSVP form ---------- */
   (function initRsvp(){
