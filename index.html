@@ -1108,6 +1108,45 @@
   }
 
   /* ============================================================
+     SITE-WIDE MOTION
+  ============================================================ */
+  /* 1. gold scroll-progress line */
+  .scroll-progress{
+    position:fixed; top:0; left:0; right:0;
+    height:2px; z-index:300;
+    background: linear-gradient(90deg, var(--champagne), var(--gold));
+    box-shadow: 0 0 8px rgba(199,174,50,.6);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    pointer-events:none;
+  }
+  /* 3. heading words rise out of a mask; eyebrow lines draw outward */
+  .w{ display:inline-block; overflow:hidden; vertical-align:top; padding:.06em .02em .24em; margin:-.06em -.02em -.24em; }
+  .wi{ display:inline-block; will-change:transform; }
+  .eyebrow::before, .eyebrow::after{ transition: transform .9s cubic-bezier(.2,.7,.2,1) .15s; }
+  .eyebrow::before{ transform-origin: 100% 50%; }
+  .eyebrow::after{ transform-origin: 0 50%; }
+  .motion-ok .eyebrow:not(.is-drawn)::before, .motion-ok .eyebrow:not(.is-drawn)::after{ transform: scaleX(0); }
+  /* 5. category cards: gold sheen and lifting label on hover */
+  .category-card::before{
+    content:"";
+    position:absolute; inset:0; z-index:3;
+    background: linear-gradient(110deg, transparent 35%, rgba(255,240,190,.38) 50%, transparent 65%);
+    transform: translateX(-120%);
+    transition: transform .9s ease;
+    pointer-events:none;
+  }
+  .category-card:hover::before{ transform: translateX(120%); }
+  .category-copy{ transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+  .category-card:hover .category-copy{ transform: translateY(-8px); }
+  /* 9. celebration canvas over the registration card */
+  .rsvp-burst{ position:absolute; left:0; right:0; top:-90px; bottom:0; width:100%; height:calc(100% + 90px); pointer-events:none; z-index:5; }
+  @media (prefers-reduced-motion: reduce){
+    .category-card::before{ display:none; }
+    .category-copy{ transition:none; }
+  }
+
+  /* ============================================================
      FINAL CTA
   ============================================================ */
   .final-cta{
@@ -1400,6 +1439,7 @@
 <!-- ============================================================
      NAVBAR
 ============================================================ -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 <header class="navbar" id="navbar">
   <a href="#hero" class="nav-logo">
     <img class="brand-logo" src="images/wwu-logo.png" alt="Wonder Women Utsav">
@@ -1950,10 +1990,83 @@
     }
   })();
 
+  var motionOK = !!(window.gsap && !reduceMotion && window.IntersectionObserver);
+  if (motionOK) document.documentElement.classList.add('motion-ok');
+
+  /* ---------- 1. Gold scroll-progress line ---------- */
+  (function initScrollProgress(){
+    var bar = document.getElementById('scrollProgress');
+    if (!bar) return;
+    var ticking = false;
+    function update(){
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }, { passive:true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+  /* ---------- 3. Section headings rise word by word; eyebrow lines draw in ---------- */
+  (function initHeadingReveals(){
+    var eyebrows = document.querySelectorAll('.section .eyebrow');
+    var heads = document.querySelectorAll('.section-head h2, .intro-copy h2, .exhibitor-copy h2, .rsvp-copy h2, .insta-head h2, .final-cta h2');
+    if (!motionOK){ eyebrows.forEach(function(e){ e.classList.add('is-drawn'); }); return; }
+    function wrapWords(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(child){
+        if (child.nodeType === 3){
+          var parts = child.textContent.split(/(\s+)/);
+          var frag = document.createDocumentFragment();
+          parts.forEach(function(part){
+            if (!part) return;
+            if (/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(part)); return; }
+            var w = document.createElement('span'); w.className = 'w';
+            var wi = document.createElement('span'); wi.className = 'wi'; wi.textContent = part;
+            w.appendChild(wi); frag.appendChild(w);
+          });
+          child.parentNode.replaceChild(frag, child);
+        } else if (child.nodeType === 1 && child.tagName !== 'BR' && child.tagName !== 'svg'){
+          wrapWords(child);
+        }
+      });
+    }
+    heads.forEach(function(h){
+      if (!h.getAttribute('aria-label')) h.setAttribute('aria-label', h.textContent.replace(/\s+/g,' ').trim());
+      wrapWords(h);
+      gsap.set(h.querySelectorAll('.wi'), { yPercent: 110 });
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        if (el.classList.contains('eyebrow')) el.classList.add('is-drawn');
+        else gsap.to(el.querySelectorAll('.wi'), { yPercent: 0, duration: .9, stagger: .06, ease: 'power4.out' });
+        io.unobserve(el);
+      });
+    }, { threshold: .4, rootMargin: '0px 0px -6% 0px' });
+    eyebrows.forEach(function(e){ io.observe(e); });
+    heads.forEach(function(h){ io.observe(h); });
+  })();
+
+  /* ---------- 5. Category cards are dealt in ---------- */
+  (function initCategoryDeal(){
+    var grid = document.querySelector('.category-grid');
+    if (!grid || !motionOK) return;
+    var cards = grid.querySelectorAll('.category-card');
+    gsap.set(cards, { opacity: 0, y: 70, scale: .92, rotation: function(i){ return i % 2 ? 4 : -4; } });
+    var io = new IntersectionObserver(function(entries){
+      if (!entries[0].isIntersecting) return;
+      gsap.to(cards, { opacity: 1, y: 0, scale: 1, rotation: 0, duration: .85, stagger: .1, ease: 'back.out(1.3)' });
+      io.disconnect();
+    }, { threshold: .2 });
+    io.observe(grid);
+  })();
+
   /* ---------- Scroll reveal: fade-up on section content ---------- */
   (function initScrollReveals(){
     var targets = document.querySelectorAll(
-      '.intro-copy, .intro-photo, .category-card, .exhibitor-photo, .exhibitor-copy, .story-card, .final-cta h2, .final-cta p, .final-cta-actions'
+      '.intro-copy, .intro-photo, .exhibitor-photo, .exhibitor-copy, .story-card, .final-cta p, .final-cta-actions'
     );
     if (!targets.length) return;
     if (!window.gsap || reduceMotion || !window.IntersectionObserver){
@@ -1977,8 +2090,19 @@
   var lightboxClose = document.getElementById('lightboxClose');
   var lastFocused = null;
 
-  function openLightbox(src, alt){
+  function openLightbox(src, alt, fromEl){
     if (!lightbox || !lightboxImg) return;
+    if (fromEl && motionOK){
+      lightboxImg.onload = function(){
+        lightboxImg.onload = null;
+        var to = lightboxImg.getBoundingClientRect(), from = fromEl.getBoundingClientRect();
+        if (!to.width) return;
+        gsap.fromTo(lightboxImg,
+          { x: (from.left + from.width / 2) - (to.left + to.width / 2), y: (from.top + from.height / 2) - (to.top + to.height / 2), scale: from.width / to.width },
+          { x: 0, y: 0, scale: 1, duration: .55, ease: 'power3.out', clearProps: 'transform' });
+        gsap.fromTo(lightbox, { backgroundColor: 'rgba(5,5,5,0)' }, { backgroundColor: 'rgba(5,5,5,.92)', duration: .4, clearProps: 'backgroundColor' });
+      };
+    }
     lightboxImg.src = src;
     lightboxImg.alt = alt || '';
     lightbox.classList.add('open');
@@ -2032,7 +2156,7 @@
       { src:'gallery-17-bedding.jpg', alt:'Shoppers gathered around a bedding stall at Wonder Women Utsav', cat:'crowd' }
     ];
 
-    function render(filter){
+    function render(filter, fromFilter){
       grid.innerHTML = '';
       var list = filter === 'all' ? photos : photos.filter(function(p){ return p.cat === filter; });
       list.forEach(function(photo){
@@ -2055,7 +2179,7 @@
           item.appendChild(cap);
         }
 
-        function open(){ lastFocused = item; openLightbox(img.src, img.alt); }
+        function open(){ lastFocused = item; openLightbox(img.src, img.alt, img); }
         item.addEventListener('click', open);
         item.addEventListener('keydown', function(e){
           if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(); }
@@ -2064,6 +2188,10 @@
       });
 
       var items = grid.querySelectorAll('.gallery-item');
+      if (fromFilter && motionOK){
+        gsap.fromTo(items, { opacity: 0, y: 18, scale: .94 }, { opacity: 1, y: 0, scale: 1, duration: .5, stagger: .04, ease: 'power3.out' });
+        return;
+      }
       if (window.gsap && !reduceMotion && window.IntersectionObserver){
         items.forEach(function(item){ gsap.set(item, { opacity:0, y:28 }); });
         var galleryIO = new IntersectionObserver(function(entries){
@@ -2082,7 +2210,15 @@
       if (!tab) return;
       filterBar.querySelectorAll('.gallery-tab').forEach(function(t){ t.classList.remove('is-active'); });
       tab.classList.add('is-active');
-      render(tab.getAttribute('data-filter'));
+      var f = tab.getAttribute('data-filter');
+      var current = grid.querySelectorAll('.gallery-item');
+      if (motionOK && current.length){
+        gsap.killTweensOf(current);
+        gsap.to(current, { opacity: 0, y: 10, scale: .94, duration: .22, stagger: .012, ease: 'power2.in',
+          onComplete: function(){ render(f, true); } });
+      } else {
+        render(f, true);
+      }
     });
 
     render('all');
@@ -2259,6 +2395,55 @@
 
   playIntro();
 
+  /* ---------- 9. Celebration: gold petals and sparkles burst from the tick ---------- */
+  function celebrate(card){
+    if (reduceMotion || !card) return;
+    var icon = card.querySelector('.rsvp-success-icon');
+    var c = document.createElement('canvas'); c.className = 'rsvp-burst'; c.setAttribute('aria-hidden','true');
+    card.appendChild(c);
+    var rect = c.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    c.width = Math.round(rect.width * dpr); c.height = Math.round(rect.height * dpr);
+    var ctx = c.getContext('2d'); ctx.scale(dpr, dpr);
+    var ir = icon ? icon.getBoundingClientRect() : rect;
+    var ox = ir.left + ir.width / 2 - rect.left, oy = ir.top + ir.height / 2 - rect.top;
+    var colors = ['#F5A623', '#FFC93C', '#E8743B', '#C7AE32', '#D8C982'];
+    var bits = [];
+    for (var i = 0; i < 90; i++){
+      var ang = -Math.PI / 2 + (Math.random() - .5) * 2.4, sp = 3.5 + Math.random() * 6.5;
+      bits.push({ x: ox, y: oy, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp,
+        rot: Math.random() * 6.28, vr: (Math.random() - .5) * .3,
+        size: 4 + Math.random() * 5, star: Math.random() < .3,
+        col: colors[i % colors.length], life: 0, max: 110 + Math.random() * 60 });
+    }
+    function star(x, y, R){
+      var r = R * .18;
+      ctx.beginPath(); ctx.moveTo(x, y - R);
+      ctx.quadraticCurveTo(x + r, y - r, x + R, y); ctx.quadraticCurveTo(x + r, y + r, x, y + R);
+      ctx.quadraticCurveTo(x - r, y + r, x - R, y); ctx.quadraticCurveTo(x - r, y - r, x, y - R); ctx.fill();
+    }
+    function frame(){
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      var alive = 0;
+      bits.forEach(function(b){
+        if (b.life > b.max) return;
+        alive++; b.life++;
+        b.vy += .16; b.vx *= .985; b.vy *= .985;
+        b.x += b.vx + Math.sin(b.life / 9) * .6; b.y += b.vy; b.rot += b.vr;
+        var a = Math.min(1, (b.max - b.life) / 40);
+        ctx.globalAlpha = a;
+        if (b.star){ ctx.fillStyle = '#FFF4C8'; star(b.x, b.y, b.size * .9); }
+        else {
+          ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.rot);
+          ctx.fillStyle = b.col; ctx.beginPath(); ctx.ellipse(0, 0, b.size, b.size * .45, 0, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        }
+      });
+      ctx.globalAlpha = 1;
+      if (alive) requestAnimationFrame(frame); else c.remove();
+    }
+    requestAnimationFrame(frame);
+  }
+
   /* ---------- RSVP form ---------- */
   (function initRsvp(){
     /* Paste the Google Apps Script web-app URL here after deploying it
@@ -2349,6 +2534,7 @@
         var map = document.getElementById('rsvpMap');
         if (map && !map.src) map.src = map.getAttribute('data-src');
         card.classList.add('is-done');
+        setTimeout(function(){ celebrate(card); }, 180);
         card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
       })
       .catch(function(){
