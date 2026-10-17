@@ -16,7 +16,7 @@ var EVENT = {
   timeLabel: '10 AM to 8 PM',
   venue:     'Sunder Bhawan, Community Centre',
   area:      'Sunder Vihar, New Delhi',
-  mapsUrl:   'https://www.google.com/maps/search/?api=1&query=Sunder+Bhawan+Sunder+Vihar+New+Delhi',
+  mapsUrl:   'https://www.google.com/maps/dir/?api=1&destination=Community+Centre+Sunder+Vihar+New+Delhi&destination_place_id=ChIJUUZ6i6YFDTkReUAE_jUnqY4',
   contact:   '+91 98102 36151',
   instagram: 'https://instagram.com/wonder_women_utsav'
 };
