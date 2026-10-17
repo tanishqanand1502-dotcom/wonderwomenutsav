@@ -391,7 +391,16 @@
       linear-gradient(90deg, var(--black) 0%, rgba(5,5,5,.9) 18%, rgba(5,5,5,.66) 48%, rgba(5,5,5,.42) 100%),
       linear-gradient(180deg, rgba(5,5,5,.45) 0%, rgba(5,5,5,0) 28%, rgba(5,5,5,0) 70%, rgba(5,5,5,.7) 100%);
   }
-  .hero > .hero-embers{ position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+  /* Rising stars: only over the black area, never over the photo slideshow */
+  .hero-stage > .hero-embers{ position:absolute; top:0; left:0; bottom:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+  .hero-stage > .hero-brand, .hero-stage > .hero-copy{ position:relative; z-index:1; }
+  @media (min-width:900px){
+    .hero-stage > .hero-embers{
+      width:42%;
+      -webkit-mask-image: linear-gradient(90deg, #000 78%, transparent);
+              mask-image: linear-gradient(90deg, #000 78%, transparent);
+    }
+  }
   .hero > .hero-botanical{ z-index:1; }
   .hero-stage{
     position:relative;
@@ -1438,12 +1447,12 @@
       <div class="hero-wipe" aria-hidden="true"></div>
       <div class="hero-dots" id="heroDots" aria-hidden="true"><span class="is-on"></span><span></span><span></span><span></span></div>
   </div>
-  <canvas class="hero-embers" id="heroEmbers" aria-hidden="true"></canvas>
   <svg class="botanical hero-botanical" id="heroBotanical" viewBox="0 0 120 200" aria-hidden="true">
         <path d="M60 10 C40 40, 30 90, 60 190 M60 40 C40 55, 25 65, 15 60 M60 70 C82 82, 95 78, 100 65 M60 110 C38 118, 25 130, 22 148 M60 140 C84 150, 96 145, 102 130"/>
       </svg>
 
   <div class="hero-stage">
+    <canvas class="hero-embers" id="heroEmbers" aria-hidden="true"></canvas>
     <div class="hero-brand">
       <img class="hb-agro" src="images/agropure-logo.png" alt="AgroPure" width="255" height="135">
       <span class="hb-tag">Pulses, Besan, Maida, Sooji, Dalia, Poha,<br>Vermicelli, Macaroni, Seviyan &amp; Pasta</span>
