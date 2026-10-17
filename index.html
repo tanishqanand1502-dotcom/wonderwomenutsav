@@ -307,6 +307,13 @@
   .nav-mobile-panel a:hover{ color: var(--gold); }
   .nav-mobile-panel .btn{ margin-top:12px; }
 
+  @media (min-width:900px) and (max-width:1239px){
+    .navbar{ gap:16px; }
+    .nav-links{ flex-wrap:nowrap; gap:14px; }
+    .nav-links a{ font-size:12px; letter-spacing:.02em; white-space:nowrap; }
+    .nav-cta .btn{ padding:10px 14px; font-size:10.5px; letter-spacing:.08em; }
+    .nav-logo img{ width:84px; }
+  }
   @media (max-width:899px){
     .nav-links, .nav-cta{ display:none; }
     .nav-toggle{ display:flex; }
@@ -1243,7 +1250,7 @@
     <a href="#exhibitors">Exhibitors</a>
     <a href="#experience">Experience</a>
     <a href="#gallery">Gallery</a>
-    <a href="#rsvp">Register</a>
+    <a href="#rsvp">Visitor Registration</a>
     <a href="#partner">Partner With Us</a>
   </nav>
   <div class="nav-cta">
@@ -1260,7 +1267,7 @@
   <a href="#exhibitors">Exhibitors</a>
   <a href="#experience">Experience</a>
   <a href="#gallery">Gallery</a>
-  <a href="#rsvp">Register</a>
+  <a href="#rsvp">Visitor Registration</a>
   <a href="#partner">Partner With Us</a>
   <a class="btn btn-primary" href="https://drive.google.com/file/d/1Lb-9YAq3hSgCPG3eM9e-E6PZQBrs9pAO/view?usp=sharing" target="_blank" rel="noopener">Reserve Your Space</a>
 </div>
@@ -1310,7 +1317,7 @@
       </div>
 
       <div class="hero-rsvp">
-        <a class="btn btn-secondary" href="#rsvp"><i class='bx bx-check-circle'></i> Register Now</a>
+        <a class="btn btn-secondary" href="#rsvp"><i class='bx bx-check-circle'></i> Visitor Registration</a>
         <span class="hero-rsvp-note">Free visitor registration &middot; takes 20 seconds</span>
       </div>
     </div>
@@ -1558,7 +1565,7 @@
           <div class="rsvp-status" id="rsvpStatus" role="alert"></div>
 
           <button class="btn btn-primary rsvp-submit" type="submit" id="rsvpSubmit">
-            <span class="rsvp-submit-label">Register Now</span>
+            <span class="rsvp-submit-label">Visitor Registration</span>
           </button>
           <p class="rsvp-fineprint">We only use your details for Wonder Women Utsav updates. No spam.</p>
         </form>
@@ -2083,7 +2090,7 @@
 
     function setLoading(on){
       submitBtn.disabled = on;
-      labelEl.innerHTML = on ? "<i class='bx bx-loader-alt'></i> Registering&hellip;" : 'Register Now';
+      labelEl.innerHTML = on ? "<i class='bx bx-loader-alt'></i> Registering&hellip;" : 'Visitor Registration';
     }
 
     form.addEventListener('submit', function(e){
