@@ -413,52 +413,46 @@
      SUPPORTERS STRIP (moving logos on white)
   ============================================================ */
   .supporters{
+    width:100%;
     background:#fff;
     color: var(--ink);
     display:flex;
-    align-items:center;
+    flex-direction:column;
     border-top:3px solid var(--gold);
-    border-bottom:1px solid #e7e1d1;
+    border-radius:3px;
+    overflow:hidden;
+    margin-top:4px;
   }
   .supporters-label{
-    flex:0 0 auto;
-    align-self:stretch;
-    display:flex; align-items:center;
-    padding: 0 clamp(18px,3vw,36px);
-    font-size:11px;
+    margin:0;
+    padding: 12px 16px 0;
+    text-align:center;
+    font-size:10.5px;
     font-weight:800;
-    letter-spacing:.22em;
+    letter-spacing:.24em;
     text-transform:uppercase;
     color:#8a7a1f;
-    background:#fff;
-    border-right:1px solid #ece6d6;
-    position:relative; z-index:1;
-    white-space:nowrap;
   }
   .supporters-viewport{
-    flex:1 1 auto;
     min-width:0;
     overflow:hidden;
-    padding: 18px 0;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    padding: 10px 0 14px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
   }
   .supporters-track{
     display:flex;
     width:max-content;
-    animation: sup-scroll 32s linear infinite;
+    animation: sup-scroll 30s linear infinite;
   }
   .supporters:hover .supporters-track{ animation-play-state: paused; }
-  .supporters-set{ display:flex; align-items:center; gap: clamp(40px,5vw,72px); padding-right: clamp(40px,5vw,72px); flex-shrink:0; }
-  .supporters-set img{ display:block; height:64px; width:auto; }
-  .supporters-set img.is-square{ height:76px; }
+  .supporters-set{ display:flex; align-items:center; gap: 40px; padding-right: 40px; flex-shrink:0; }
+  .supporters-set img{ display:block; height:50px; width:auto; }
+  .supporters-set img.is-square{ height:60px; }
   @keyframes sup-scroll{ to{ transform: translateX(-50%); } }
   @media (max-width:640px){
-    .supporters{ flex-direction:column; align-items:stretch; }
-    .supporters-label{ justify-content:center; padding:12px 16px 0; border-right:none; }
-    .supporters-viewport{ padding:12px 0 16px; }
-    .supporters-set img{ height:48px; }
-    .supporters-set img.is-square{ height:58px; }
+    .supporters-set img{ height:44px; }
+    .supporters-set img.is-square{ height:54px; }
   }
   @media (prefers-reduced-motion: reduce){
     .supporters-track{ animation:none; width:auto; }
@@ -1373,6 +1367,34 @@
 
       <p class="hero-signature">Shop &bull; Celebrate &bull; Belong</p>
 
+      <div class="supporters" role="region" aria-label="Supported by">
+        <p class="supporters-label">Supported By</p>
+        <div class="supporters-viewport">
+          <div class="supporters-track">
+            <div class="supporters-set">
+              <img src="images/supporters/veeba.webp" alt="Veeba">
+              <img src="images/supporters/sunmood.webp" alt="Sunmood">
+              <img src="images/supporters/allure-cakecart.webp" alt="Allure Cakecart" class="is-square">
+              <img src="images/supporters/sunder-vihar-society.webp" alt="Sunder Vihar Society" class="is-square">
+              <img src="images/supporters/pragati-rental-services.webp" alt="Pragati Rental Services">
+              <img src="images/supporters/the-exotic-vacation.webp" alt="The Exotic Vacation" class="is-square">
+              <img src="images/supporters/krishna-flowers.webp" alt="Krishna Flowers" class="is-square">
+              <img src="images/supporters/coco-cloud.webp" alt="Coco Cloud" class="is-square">
+            </div>
+            <div class="supporters-set" aria-hidden="true">
+              <img src="images/supporters/veeba.webp" alt="">
+              <img src="images/supporters/sunmood.webp" alt="">
+              <img src="images/supporters/allure-cakecart.webp" alt="" class="is-square">
+              <img src="images/supporters/sunder-vihar-society.webp" alt="" class="is-square">
+              <img src="images/supporters/pragati-rental-services.webp" alt="">
+              <img src="images/supporters/the-exotic-vacation.webp" alt="" class="is-square">
+              <img src="images/supporters/krishna-flowers.webp" alt="" class="is-square">
+              <img src="images/supporters/coco-cloud.webp" alt="" class="is-square">
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="hero-event-grid" id="visit">
         <div class="hero-event-item">
           <i class='bx bx-calendar-star'></i>
@@ -1423,36 +1445,6 @@
   <div class="hero-marquee" aria-hidden="true"><div class="mq-track"><div class="mq-set"><span class="mq-item">Fashion</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Jewellery</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Beauty</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Home &amp; Decor</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Food</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Gifting</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Hourly Prizes</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Women-led Brands</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></div><div class="mq-set"><span class="mq-item">Fashion</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Jewellery</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Beauty</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Home &amp; Decor</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Food</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Gifting</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Hourly Prizes</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Women-led Brands</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></div></div></div>
 </section>
 
-<!-- ============================================================
-     SUPPORTERS STRIP
-============================================================ -->
-<section class="supporters" aria-label="Supported by">
-  <p class="supporters-label">Supported By</p>
-  <div class="supporters-viewport">
-    <div class="supporters-track">
-      <div class="supporters-set">
-        <img src="images/supporters/veeba.webp" alt="Veeba">
-        <img src="images/supporters/sunmood.webp" alt="Sunmood">
-        <img src="images/supporters/allure-cakecart.webp" alt="Allure Cakecart" class="is-square">
-        <img src="images/supporters/sunder-vihar-society.webp" alt="Sunder Vihar Society" class="is-square">
-        <img src="images/supporters/pragati-rental-services.webp" alt="Pragati Rental Services">
-        <img src="images/supporters/the-exotic-vacation.webp" alt="The Exotic Vacation" class="is-square">
-        <img src="images/supporters/krishna-flowers.webp" alt="Krishna Flowers" class="is-square">
-        <img src="images/supporters/coco-cloud.webp" alt="Coco Cloud" class="is-square">
-      </div>
-      <div class="supporters-set" aria-hidden="true">
-        <img src="images/supporters/veeba.webp" alt="">
-        <img src="images/supporters/sunmood.webp" alt="">
-        <img src="images/supporters/allure-cakecart.webp" alt="" class="is-square">
-        <img src="images/supporters/sunder-vihar-society.webp" alt="" class="is-square">
-        <img src="images/supporters/pragati-rental-services.webp" alt="">
-        <img src="images/supporters/the-exotic-vacation.webp" alt="" class="is-square">
-        <img src="images/supporters/krishna-flowers.webp" alt="" class="is-square">
-        <img src="images/supporters/coco-cloud.webp" alt="" class="is-square">
-      </div>
-    </div>
-  </div>
-</section>
 
 
 <!-- ============================================================
@@ -2027,7 +2019,7 @@
     if (!window.gsap || reduceMotion) return;
     if (introTl) introTl.kill();
     gsap.set(['.navbar', '.hero-presents > *', '.hl > span', '.hero-actions .btn', '.hero-signature',
-              '.hero-event-item', '.hero-rsvp', '.hero-countdown', '.hero-dots', '.hero-marquee', '.hero-slides'],
+              '.hero-event-item', '.hero-rsvp', '.hero-text .supporters', '.hero-countdown', '.hero-dots', '.hero-marquee', '.hero-slides'],
              { clearProps: 'all' });
     introTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
       .fromTo('.hero-slides', { clipPath: 'inset(0 100% 0 0)' },
@@ -2040,6 +2032,7 @@
       .from('.hl > span', { yPercent: 115, duration: 1, stagger: 0.14, ease: 'power4.out' }, 0.45)
       .from('.hero-actions .btn', { y: 18, opacity: 0, duration: 0.6, stagger: 0.08 }, 0.95)
       .from('.hero-signature', { opacity: 0, x: -10, duration: 0.6 }, 1.1)
+      .from('.hero-text .supporters', { y: 14, opacity: 0, duration: 0.6 }, 1.15)
       .from('.hero-event-item', { y: 14, opacity: 0, duration: 0.5, stagger: 0.07 }, 1.2)
       .from('.hero-rsvp', { y: 12, opacity: 0, duration: 0.5 }, 1.45)
       .from('.hero-countdown', { y: 20, opacity: 0, duration: 0.7 }, 1.5)
