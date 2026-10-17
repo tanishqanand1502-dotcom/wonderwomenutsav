@@ -376,99 +376,159 @@
     100%{ background-position:-40% 0; }
   }
   /* ============================================================
-     PRESENTS ROW: AgroPure (left) · Presents (centre) · Wonder Women Utsav (right)
-     Sits at the top of the black hero column and spans its full width.
+     HERO STAGE: brand lockup (left) + headline and actions (right)
+     The photo slideshow sits behind the right side, faded into black.
   ============================================================ */
-  .hero-presents{
-    width:100%;
+  .hero{ position:relative; overflow:hidden; }
+  .hero > .hero-photo{
+    position:absolute; top:0; right:0; bottom:0;
+    width:68%;
+    min-height:0;
+    z-index:0;
+  }
+  .hero > .hero-photo::after{
+    background:
+      linear-gradient(90deg, var(--black) 0%, rgba(5,5,5,.9) 18%, rgba(5,5,5,.66) 48%, rgba(5,5,5,.42) 100%),
+      linear-gradient(180deg, rgba(5,5,5,.45) 0%, rgba(5,5,5,0) 28%, rgba(5,5,5,0) 70%, rgba(5,5,5,.7) 100%);
+  }
+  .hero > .hero-embers{ position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+  .hero > .hero-botanical{ z-index:1; }
+  .hero-stage{
+    position:relative;
+    z-index:2;
     display:grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: minmax(250px,.8fr) 1.2fr;
     align-items:center;
-    gap: clamp(10px,1.6vw,18px);
-    padding-bottom: clamp(16px,2.4vw,24px);
-    margin-bottom: 6px;
-    border-bottom:1px solid rgba(199,174,50,.22);
+    gap: clamp(32px,5vw,88px);
+    min-height: min(88vh, 880px);
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: clamp(112px,15vh,140px) clamp(24px,6vw,80px) clamp(56px,8vh,84px);
   }
-  .hp-agro{ justify-self:start; display:flex; flex-direction:column; align-items:center; gap:6px; min-width:0; }
-  .hp-agro img{ display:block; height:clamp(46px,4.6vw,64px); width:auto; }
-  .hp-tag{
-    font-size:8.5px;
-    font-weight:700;
-    letter-spacing:.06em;
-    line-height:1.45;
-    text-transform:uppercase;
-    text-align:center;
-    color: var(--muted);
-    max-width:190px;
+  .hero-brand{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px; }
+  .hero-brand .hb-agro{ display:block; height:clamp(72px,7.2vw,108px); width:auto; }
+  .hero-brand .hb-tag{
+    font-size:11.5px; font-weight:700; letter-spacing:.06em; line-height:1.55;
+    text-transform:uppercase; color: rgba(247,243,234,.82);
   }
-  .hp-presents{ display:flex; align-items:center; justify-content:center; gap:10px; min-width:0; }
-  .hp-line{ display:block; flex:1 1 0; min-width:10px; max-width:60px; height:1px; background: linear-gradient(90deg, transparent, var(--gold)); }
-  .hp-line:last-child{ background: linear-gradient(90deg, var(--gold), transparent); }
-  .hp-word{
+  .hero-brand .hb-word{
+    font-family: var(--serif); font-style:italic; font-weight:700;
+    font-size: clamp(28px,3vw,44px); line-height:1.1;
+    color: var(--champagne); margin-top:6px;
+  }
+  .hero-brand .hb-wwu{ display:block; width:clamp(230px,25vw,350px); height:auto; margin-top:-2px; }
+
+  .hero-copy{ display:flex; flex-direction:column; align-items:flex-start; gap:20px; min-width:0; }
+  .hero-eyebrow{
+    margin:0;
+    display:flex; align-items:center; gap:14px;
     font-family: var(--serif);
-    font-style:italic;
-    font-size: clamp(18px,1.9vw,26px);
+    font-size:14px; letter-spacing:.3em; text-transform:uppercase;
     color: var(--champagne);
-    white-space:nowrap;
   }
-  .hp-wwu{ justify-self:end; }
-  .hp-wwu img{ display:block; width:clamp(124px,12.4vw,180px); height:auto; }
-  /* narrow hero column (small laptops/tablets): drop the product line so the row stays tidy */
-  @media (min-width:900px) and (max-width:1199px){ .hp-tag{ display:none; } }
+  .he-line{ position:relative; display:block; width:clamp(36px,5vw,80px); height:1px; background: var(--gold); opacity:.8; }
+  .he-line::before, .he-line::after{ content:""; position:absolute; top:-2px; width:5px; height:5px; background: var(--gold); transform: rotate(45deg); }
+  .he-line::before{ left:-2px; } .he-line::after{ right:-2px; }
+  .hero-copy .hero-headline{ font-size: clamp(40px,5.4vw,78px); line-height:1.04; max-width:680px; }
+  .hero-copy .hero-signature{
+    margin:0;
+    font-family: var(--serif); font-style:normal;
+    font-size: clamp(16px,1.5vw,21px); letter-spacing:.14em;
+    color: var(--ivory); opacity:.92;
+  }
+  .hero-pill{
+    display:inline-flex; align-items:center;
+    padding: 10px 26px;
+    border:1.5px solid var(--gold);
+    border-radius:999px;
+    background: rgba(199,174,50,.10);
+    font-family: var(--serif);
+    font-size:15px; letter-spacing:.22em; text-transform:uppercase;
+    color: var(--ivory);
+  }
+  .hero-copy .hero-actions{ margin-top:4px; }
+  .hero-copy .hero-actions .btn-primary i{ font-size:20px; margin-right:-6px; }
+  .hero-meta{ display:flex; flex-wrap:wrap; gap: 10px 26px; margin-top:4px; }
+  .hero-meta li{ display:flex; align-items:center; gap:8px; font-size:13.5px; color: rgba(247,243,234,.82); }
+  .hero-meta i{ color: var(--gold); font-size:17px; }
+
+  .hero-badges{ display:flex; flex-wrap:wrap; align-items:center; gap:12px 16px; }
+  .hero-copy .hero-countdown{
+    position:static;
+    flex-direction:row; align-items:center; gap:14px;
+    padding: 7px 18px;
+    border-radius:999px;
+    background: rgba(5,5,5,.55);
+  }
+  .hero-copy .hero-countdown .cd-label{ font-size:10px; letter-spacing:.2em; white-space:nowrap; }
+  .hero-copy .hero-countdown .cd-row{ gap:12px; }
+  .hero-copy .hero-countdown .cd-unit{ flex-direction:row; align-items:baseline; gap:3px; min-width:0; }
+  .hero-copy .hero-countdown .cd-unit b{ font-size:20px; }
+  .hero-copy .hero-countdown .cd-unit small{ margin-top:0; font-size:9px; letter-spacing:.1em; }
+  .hero-copy .hero-actions{ gap:12px; }
+  .hero-copy .hero-actions .btn{ padding:15px 24px; font-size:12px; letter-spacing:.1em; }
+
+  @media (max-width:899px){
+    .hero{ display:flex; flex-direction:column-reverse; }
+    .hero > .hero-photo{ position:relative; width:100%; height:62vh; min-height:360px; }
+    .hero > .hero-photo::after{ background: linear-gradient(180deg, var(--black) 0%, rgba(5,5,5,0) 22%, rgba(5,5,5,0) 70%, rgba(5,5,5,.6) 100%); }
+    .hero-stage{ grid-template-columns:1fr; min-height:0; gap:36px; padding: 104px clamp(20px,5vw,40px) 40px; }
+    .hero-copy{ align-items:center; text-align:center; }
+    .hero-copy .hero-headline{ margin:0 auto; }
+    .hero-meta{ justify-content:center; }
+    .hero-copy .hero-actions{ justify-content:center; }
+    .hero-badges{ justify-content:center; }
+  }
   @media (max-width:520px){
-    .hero-presents{ gap:8px; }
-    .hp-agro img{ height:40px; }
-    .hp-tag{ display:none; }
-    .hp-presents{ gap:6px; }
-    .hp-line{ width:12px; }
-    .hp-word{ font-size:17px; }
-    .hp-wwu img{ width:104px; }
+    .hero-brand .hb-agro{ height:64px; }
+    .hero-brand .hb-tag{ font-size:10px; }
+    .hero-brand .hb-wwu{ width:210px; }
+    .hero-eyebrow{ font-size:12px; letter-spacing:.24em; gap:10px; }
+    .hero-copy .hero-actions{ flex-direction:column; align-items:stretch; width:100%; }
   }
 
   /* ============================================================
-     SUPPORTERS STRIP (moving logos on white)
+     SUPPORTERS STRIP (moving logos on white, full width under the hero)
   ============================================================ */
   .supporters{
-    width:100%;
     background:#fff;
     color: var(--ink);
     display:flex;
-    flex-direction:column;
+    align-items:center;
     border-top:3px solid var(--gold);
-    border-radius:3px;
-    overflow:hidden;
-    margin-top:4px;
+    border-bottom:1px solid #e7e1d1;
   }
   .supporters-label{
     margin:0;
-    padding: 12px 16px 0;
-    text-align:center;
-    font-size:10.5px;
-    font-weight:800;
-    letter-spacing:.24em;
-    text-transform:uppercase;
+    flex:0 0 auto;
+    align-self:stretch;
+    display:flex; align-items:center;
+    padding: 0 clamp(18px,3vw,36px);
+    font-size:11px; font-weight:800; letter-spacing:.22em; text-transform:uppercase;
     color:#8a7a1f;
+    border-right:1px solid #ece6d6;
+    white-space:nowrap;
   }
   .supporters-viewport{
+    flex:1 1 auto;
     min-width:0;
     overflow:hidden;
-    padding: 10px 0 14px;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-            mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    padding: 18px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   }
-  .supporters-track{
-    display:flex;
-    width:max-content;
-    animation: sup-scroll 30s linear infinite;
-  }
+  .supporters-track{ display:flex; width:max-content; animation: sup-scroll 32s linear infinite; }
   .supporters:hover .supporters-track{ animation-play-state: paused; }
-  .supporters-set{ display:flex; align-items:center; gap: 40px; padding-right: 40px; flex-shrink:0; }
-  .supporters-set img{ display:block; height:50px; width:auto; }
-  .supporters-set img.is-square{ height:60px; }
+  .supporters-set{ display:flex; align-items:center; gap: clamp(40px,5vw,72px); padding-right: clamp(40px,5vw,72px); flex-shrink:0; }
+  .supporters-set img{ display:block; height:64px; width:auto; }
+  .supporters-set img.is-square{ height:76px; }
   @keyframes sup-scroll{ to{ transform: translateX(-50%); } }
   @media (max-width:640px){
-    .supporters-set img{ height:44px; }
-    .supporters-set img.is-square{ height:54px; }
+    .supporters{ flex-direction:column; align-items:stretch; }
+    .supporters-label{ justify-content:center; padding:12px 16px 0; border-right:none; }
+    .supporters-viewport{ padding:12px 0 16px; }
+    .supporters-set img{ height:46px; }
+    .supporters-set img.is-square{ height:56px; }
   }
   @media (prefers-reduced-motion: reduce){
     .supporters-track{ animation:none; width:auto; }
@@ -1288,7 +1348,7 @@
 
 
   @media (min-width:900px){
-    .hero-countdown{ top: 104px; bottom:auto; }
+    .hero-countdown{ bottom:auto; }
   }
   @media (max-width:899px){
     .hero-photo{ min-height:58vh; }
@@ -1360,85 +1420,7 @@
      HERO
 ============================================================ -->
 <section class="hero" id="hero">
-  <div class="hero-split">
-    <div class="hero-text">
-      <canvas class="hero-embers" id="heroEmbers" aria-hidden="true"></canvas>
-      <svg class="botanical hero-botanical" id="heroBotanical" viewBox="0 0 120 200" aria-hidden="true">
-        <path d="M60 10 C40 40, 30 90, 60 190 M60 40 C40 55, 25 65, 15 60 M60 70 C82 82, 95 78, 100 65 M60 110 C38 118, 25 130, 22 148 M60 140 C84 150, 96 145, 102 130"/>
-      </svg>
-
-      <div class="hero-presents">
-        <div class="hp-agro">
-          <img src="images/agropure-logo.png" alt="AgroPure" width="255" height="135">
-          <span class="hp-tag">Pulses, Besan, Maida, Sooji, Dalia, Poha, Vermicelli, Macaroni, Seviyan &amp; Pasta</span>
-        </div>
-        <div class="hp-presents"><span class="hp-line"></span><span class="hp-word">Presents</span><span class="hp-line"></span></div>
-        <div class="hp-wwu"><img src="images/wwu-logo.png" alt="Wonder Women Utsav" width="1845" height="1050"></div>
-      </div>
-
-      <h1 class="hero-headline"><span class="hl"><span>A Festive World</span></span><span class="hl"><span>Curated <em>Around Her<svg class="thread-star word-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></em></span></span></h1>
-
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://drive.google.com/file/d/1Lb-9YAq3hSgCPG3eM9e-E6PZQBrs9pAO/view?usp=sharing" target="_blank" rel="noopener">Reserve Your Space</a>
-        <a class="btn btn-secondary" href="https://drive.google.com/file/d/1co8pd9F6ivAfawPlE9IChxUg27s7LL74/view?usp=sharing" target="_blank" rel="noopener">Partner With Us</a>
-      </div>
-
-      <p class="hero-signature">Shop &bull; Celebrate &bull; Belong</p>
-
-      <div class="supporters" role="region" aria-label="Supported by">
-        <p class="supporters-label">Supported By</p>
-        <div class="supporters-viewport">
-          <div class="supporters-track">
-            <div class="supporters-set">
-              <img src="images/supporters/veeba.webp" alt="Veeba">
-              <img src="images/supporters/sunmood.webp" alt="Sunmood">
-              <img src="images/supporters/allure-cakecart.webp" alt="Allure Cakecart" class="is-square">
-              <img src="images/supporters/sunder-vihar-society.webp" alt="Sunder Vihar Society" class="is-square">
-              <img src="images/supporters/pragati-rental-services.webp" alt="Pragati Rental Services">
-              <img src="images/supporters/the-exotic-vacation.webp" alt="The Exotic Vacation" class="is-square">
-              <img src="images/supporters/krishna-flowers.webp" alt="Krishna Flowers" class="is-square">
-              <img src="images/supporters/coco-cloud.webp" alt="Coco Cloud" class="is-square">
-            </div>
-            <div class="supporters-set" aria-hidden="true">
-              <img src="images/supporters/veeba.webp" alt="">
-              <img src="images/supporters/sunmood.webp" alt="">
-              <img src="images/supporters/allure-cakecart.webp" alt="" class="is-square">
-              <img src="images/supporters/sunder-vihar-society.webp" alt="" class="is-square">
-              <img src="images/supporters/pragati-rental-services.webp" alt="">
-              <img src="images/supporters/the-exotic-vacation.webp" alt="" class="is-square">
-              <img src="images/supporters/krishna-flowers.webp" alt="" class="is-square">
-              <img src="images/supporters/coco-cloud.webp" alt="" class="is-square">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-event-grid" id="visit">
-        <div class="hero-event-item">
-          <i class='bx bx-calendar-star'></i>
-          <div><strong>31 October 2026</strong><span>Saturday</span></div>
-        </div>
-        <div class="hero-event-item">
-          <i class='bx bx-time-five'></i>
-          <div><strong>10 AM &ndash; 8 PM</strong><span>All Day Long</span></div>
-        </div>
-        <div class="hero-event-item">
-          <i class='bx bx-map-pin'></i>
-          <div><strong>Sunder Bhawan</strong><span>Sunder Vihar, New Delhi</span></div>
-        </div>
-        <div class="hero-event-item">
-          <i class='bx bx-gift'></i>
-          <div><strong>Free Entry</strong><span>All Are Welcome</span></div>
-        </div>
-      </div>
-
-      <div class="hero-rsvp">
-        <a class="btn btn-secondary" href="#rsvp"><i class='bx bx-check-circle'></i> Visitor Registration</a>
-        <span class="hero-rsvp-note">Free visitor registration &middot; takes 20 seconds</span>
-      </div>
-    </div>
-
-    <div class="hero-photo">
+  <div class="hero-photo">
       <div class="hero-slides" id="heroSlides">
         <figure class="hero-slide is-on"><img src="images/event-connect-1.jpg" alt="Women smiling and connecting over a festive decor stall at Wonder Women Utsav" loading="eager"></figure>
         <figure class="hero-slide"><img src="images/gallery-21-prizes.jpg" alt="A shopper with her hourly prize gift bag at Wonder Women Utsav" loading="lazy"></figure>
@@ -1446,22 +1428,83 @@
         <figure class="hero-slide"><img src="images/gallery-19-fashion.jpg" alt="Shoppers browsing a clothing rack at Wonder Women Utsav" loading="lazy"></figure>
       </div>
       <div class="hero-wipe" aria-hidden="true"></div>
-      <div class="hero-countdown" id="heroCountdown" aria-live="off">
-        <span class="cd-label">Doors open in</span>
-        <div class="cd-row">
-          <div class="cd-unit"><b data-u="d">00</b><small>Days</small></div>
-          <div class="cd-unit"><b data-u="h">00</b><small>Hrs</small></div>
-          <div class="cd-unit"><b data-u="m">00</b><small>Min</small></div>
-          <div class="cd-unit"><b data-u="s">00</b><small>Sec</small></div>
+      <div class="hero-dots" id="heroDots" aria-hidden="true"><span class="is-on"></span><span></span><span></span><span></span></div>
+  </div>
+  <canvas class="hero-embers" id="heroEmbers" aria-hidden="true"></canvas>
+  <svg class="botanical hero-botanical" id="heroBotanical" viewBox="0 0 120 200" aria-hidden="true">
+        <path d="M60 10 C40 40, 30 90, 60 190 M60 40 C40 55, 25 65, 15 60 M60 70 C82 82, 95 78, 100 65 M60 110 C38 118, 25 130, 22 148 M60 140 C84 150, 96 145, 102 130"/>
+      </svg>
+
+  <div class="hero-stage">
+    <div class="hero-brand">
+      <img class="hb-agro" src="images/agropure-logo.png" alt="AgroPure" width="255" height="135">
+      <span class="hb-tag">Pulses, Besan, Maida, Sooji, Dalia, Poha,<br>Vermicelli, Macaroni, Seviyan &amp; Pasta</span>
+      <span class="hb-word">Presents</span>
+      <img class="hb-wwu" src="images/wwu-logo.png" alt="Wonder Women Utsav" width="1845" height="1050">
+    </div>
+
+    <div class="hero-copy">
+      <p class="hero-eyebrow"><span class="he-line" aria-hidden="true"></span>Diwali Exhibition<span class="he-line" aria-hidden="true"></span></p>
+      <h1 class="hero-headline"><span class="hl"><span>A Festive World</span></span><span class="hl"><span>Curated <em>Around Her<svg class="thread-star word-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></em></span></span></h1>
+      <p class="hero-signature">Shop &bull; Celebrate &bull; Belong</p>
+      <div class="hero-badges">
+        <span class="hero-pill">Free Entry</span>
+        <div class="hero-countdown" id="heroCountdown" aria-live="off">
+          <span class="cd-label">Doors open in</span>
+          <div class="cd-row">
+            <div class="cd-unit"><b data-u="d">00</b><small>Days</small></div>
+            <div class="cd-unit"><b data-u="h">00</b><small>Hrs</small></div>
+            <div class="cd-unit"><b data-u="m">00</b><small>Min</small></div>
+            <div class="cd-unit"><b data-u="s">00</b><small>Sec</small></div>
+          </div>
         </div>
       </div>
-      <div class="hero-dots" id="heroDots" aria-hidden="true"><span class="is-on"></span><span></span><span></span><span></span></div>
-      <div class="divider-runner-track"></div>
-      <div class="divider-runner"></div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#rsvp">Visitor Registration <i class='bx bx-right-arrow-alt'></i></a>
+        <a class="btn btn-secondary" href="https://drive.google.com/file/d/1Lb-9YAq3hSgCPG3eM9e-E6PZQBrs9pAO/view?usp=sharing" target="_blank" rel="noopener">Reserve Your Space</a>
+        <a class="btn btn-secondary" href="https://drive.google.com/file/d/1co8pd9F6ivAfawPlE9IChxUg27s7LL74/view?usp=sharing" target="_blank" rel="noopener">Partner With Us</a>
+      </div>
+      <ul class="hero-meta" id="visit">
+        <li><i class='bx bx-calendar-star'></i>Saturday, 31 October 2026</li>
+        <li><i class='bx bx-time-five'></i>10 AM &ndash; 8 PM</li>
+        <li><i class='bx bx-map-pin'></i>Sunder Bhawan, Sunder Vihar, New Delhi</li>
+      </ul>
     </div>
   </div>
-  <div class="hero-marquee" aria-hidden="true"><div class="mq-track"><div class="mq-set"><span class="mq-item">Fashion</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Jewellery</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Beauty</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Home &amp; Decor</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Food</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Gifting</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Hourly Prizes</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Women-led Brands</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></div><div class="mq-set"><span class="mq-item">Fashion</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Jewellery</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Beauty</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Home &amp; Decor</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Food</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Gifting</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Hourly Prizes</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Women-led Brands</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></div></div></div>
 </section>
+
+<!-- ============================================================
+     SUPPORTERS STRIP
+============================================================ -->
+<section class="supporters" aria-label="Supported by">
+  <p class="supporters-label">Supported By</p>
+  <div class="supporters-viewport">
+    <div class="supporters-track">
+      <div class="supporters-set">
+        <img src="images/supporters/veeba.webp" alt="Veeba">
+        <img src="images/supporters/sunmood.webp" alt="Sunmood">
+        <img src="images/supporters/allure-cakecart.webp" alt="Allure Cakecart" class="is-square">
+        <img src="images/supporters/sunder-vihar-society.webp" alt="Sunder Vihar Society" class="is-square">
+        <img src="images/supporters/pragati-rental-services.webp" alt="Pragati Rental Services">
+        <img src="images/supporters/the-exotic-vacation.webp" alt="The Exotic Vacation" class="is-square">
+        <img src="images/supporters/krishna-flowers.webp" alt="Krishna Flowers" class="is-square">
+        <img src="images/supporters/coco-cloud.webp" alt="Coco Cloud" class="is-square">
+      </div>
+      <div class="supporters-set" aria-hidden="true">
+        <img src="images/supporters/veeba.webp" alt="">
+        <img src="images/supporters/sunmood.webp" alt="">
+        <img src="images/supporters/allure-cakecart.webp" alt="" class="is-square">
+        <img src="images/supporters/sunder-vihar-society.webp" alt="" class="is-square">
+        <img src="images/supporters/pragati-rental-services.webp" alt="">
+        <img src="images/supporters/the-exotic-vacation.webp" alt="" class="is-square">
+        <img src="images/supporters/krishna-flowers.webp" alt="" class="is-square">
+        <img src="images/supporters/coco-cloud.webp" alt="" class="is-square">
+      </div>
+    </div>
+  </div>
+</section>
+
+  <div class="hero-marquee" aria-hidden="true"><div class="mq-track"><div class="mq-set"><span class="mq-item">Fashion</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Jewellery</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Beauty</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Home &amp; Decor</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Food</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Gifting</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Hourly Prizes</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Women-led Brands</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></div><div class="mq-set"><span class="mq-item">Fashion</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Jewellery</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Beauty</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Home &amp; Decor</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Food</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Gifting</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Hourly Prizes</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Women-led Brands</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></div></div></div>
 
 
 
@@ -2036,25 +2079,26 @@
   function playIntro(){
     if (!window.gsap || reduceMotion) return;
     if (introTl) introTl.kill();
-    gsap.set(['.navbar', '.hero-presents > *', '.hl > span', '.hero-actions .btn', '.hero-signature',
-              '.hero-event-item', '.hero-rsvp', '.hero-text .supporters', '.hero-countdown', '.hero-dots', '.hero-marquee', '.hero-slides'],
+    gsap.set(['.navbar', '.hero-brand > *', '.hero-eyebrow', '.hl > span', '.hero-copy .hero-signature', '.hero-pill',
+              '.hero-copy .hero-actions .btn', '.hero-meta li', '.hero-countdown', '.hero-dots', '.supporters', '.hero-marquee', '.hero-slides'],
              { clearProps: 'all' });
     introTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-      .fromTo('.hero-slides', { clipPath: 'inset(0 100% 0 0)' },
-                              { clipPath: 'inset(0 0% 0 0)', duration: 1.5, ease: 'power4.inOut' }, 0.15)
-      .fromTo('.hero-wipe', { left: '0%', opacity: 1 },
-                            { left: '100%', duration: 1.5, ease: 'power4.inOut' }, 0.15)
-      .to('.hero-wipe', { opacity: 0, duration: 0.3 }, 1.6)
+      .fromTo('.hero-slides', { clipPath: 'inset(0 0 0 100%)' },
+                              { clipPath: 'inset(0 0 0 0%)', duration: 1.6, ease: 'power4.inOut' }, 0.1)
+      .fromTo('.hero-wipe', { left: '100%', opacity: 1 },
+                            { left: '0%', duration: 1.6, ease: 'power4.inOut' }, 0.1)
+      .to('.hero-wipe', { opacity: 0, duration: 0.3 }, 1.7)
       .from('.navbar', { y: -24, opacity: 0, duration: 0.6 }, 0)
-      .from('.hero-presents > *', { y: 14, opacity: 0, duration: 0.6, stagger: 0.12 }, 0.25)
-      .from('.hl > span', { yPercent: 115, duration: 1, stagger: 0.14, ease: 'power4.out' }, 0.45)
-      .from('.hero-actions .btn', { y: 18, opacity: 0, duration: 0.6, stagger: 0.08 }, 0.95)
-      .from('.hero-signature', { opacity: 0, x: -10, duration: 0.6 }, 1.1)
-      .from('.hero-text .supporters', { y: 14, opacity: 0, duration: 0.6 }, 1.15)
-      .from('.hero-event-item', { y: 14, opacity: 0, duration: 0.5, stagger: 0.07 }, 1.2)
-      .from('.hero-rsvp', { y: 12, opacity: 0, duration: 0.5 }, 1.45)
-      .from('.hero-countdown', { y: 20, opacity: 0, duration: 0.7 }, 1.5)
-      .from('.hero-dots', { opacity: 0, duration: 0.5 }, 1.6)
+      .from('.hero-brand > *', { y: 18, opacity: 0, duration: 0.7, stagger: 0.12 }, 0.2)
+      .from('.hero-eyebrow', { opacity: 0, y: 10, duration: 0.6 }, 0.55)
+      .from('.hl > span', { yPercent: 115, duration: 1, stagger: 0.14, ease: 'power4.out' }, 0.65)
+      .from('.hero-copy .hero-signature', { opacity: 0, y: 10, duration: 0.6 }, 1.05)
+      .from('.hero-pill', { opacity: 0, scale: 0.9, duration: 0.5 }, 1.15)
+      .from('.hero-copy .hero-actions .btn', { y: 16, opacity: 0, duration: 0.55, stagger: 0.08 }, 1.25)
+      .from('.hero-meta li', { y: 10, opacity: 0, duration: 0.5, stagger: 0.07 }, 1.45)
+      .from('.hero-countdown', { y: 20, opacity: 0, duration: 0.7 }, 1.6)
+      .from('.hero-dots', { opacity: 0, duration: 0.5 }, 1.7)
+      .from('.supporters', { opacity: 0, duration: 0.8 }, 1.4)
       .from('.hero-marquee', { opacity: 0, duration: 0.8 }, 1.6);
     kenBurns(slides[current]);
   }
