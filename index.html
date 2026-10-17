@@ -375,24 +375,98 @@
     62%{ background-position:-40% 0; }
     100%{ background-position:-40% 0; }
   }
-  .hero-partner{
-    display:inline-flex;
+  /* "AgroPure presents Wonder Women Utsav" lockup (from the invitation) */
+  .hero-presents{
+    display:flex;
+    flex-direction:column;
     align-items:center;
-    gap:16px;
+    gap:6px;
+    width:max-content;
+    max-width:100%;
+    text-align:center;
+    margin-bottom:10px;
   }
-  .hero-partner span{
-    font-size:10.5px;
+  .hero-presents .hp-agro{ display:block; height:62px; width:auto; }
+  .hero-presents .hp-tag{
+    font-size:9.5px;
     font-weight:700;
-    letter-spacing:.2em;
+    letter-spacing:.06em;
+    line-height:1.45;
     text-transform:uppercase;
-    color: var(--gold);
-    line-height:1.4;
+    color: var(--muted);
+    max-width:270px;
   }
-  .hero-partner img{
-    display:block;
-    height:52px;
-    width:auto;
+  .hero-presents .hp-word{
+    font-family: var(--serif);
+    font-style:italic;
+    font-size:19px;
+    color: var(--champagne);
+    margin-top:2px;
   }
+  .hero-presents .hp-wwu{ display:block; width:210px; height:auto; margin-top:-6px; }
+  @media (max-width:899px){
+    .hero-presents .hp-agro{ height:54px; }
+    .hero-presents .hp-wwu{ width:180px; }
+  }
+
+  /* ============================================================
+     SUPPORTERS STRIP (moving logos on white)
+  ============================================================ */
+  .supporters{
+    background:#fff;
+    color: var(--ink);
+    display:flex;
+    align-items:center;
+    border-top:3px solid var(--gold);
+    border-bottom:1px solid #e7e1d1;
+  }
+  .supporters-label{
+    flex:0 0 auto;
+    align-self:stretch;
+    display:flex; align-items:center;
+    padding: 0 clamp(18px,3vw,36px);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:#8a7a1f;
+    background:#fff;
+    border-right:1px solid #ece6d6;
+    position:relative; z-index:1;
+    white-space:nowrap;
+  }
+  .supporters-viewport{
+    flex:1 1 auto;
+    min-width:0;
+    overflow:hidden;
+    padding: 18px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .supporters-track{
+    display:flex;
+    width:max-content;
+    animation: sup-scroll 32s linear infinite;
+  }
+  .supporters:hover .supporters-track{ animation-play-state: paused; }
+  .supporters-set{ display:flex; align-items:center; gap: clamp(40px,5vw,72px); padding-right: clamp(40px,5vw,72px); flex-shrink:0; }
+  .supporters-set img{ display:block; height:64px; width:auto; }
+  .supporters-set img.is-square{ height:76px; }
+  @keyframes sup-scroll{ to{ transform: translateX(-50%); } }
+  @media (max-width:640px){
+    .supporters{ flex-direction:column; align-items:stretch; }
+    .supporters-label{ justify-content:center; padding:12px 16px 0; border-right:none; }
+    .supporters-viewport{ padding:12px 0 16px; }
+    .supporters-set img{ height:48px; }
+    .supporters-set img.is-square{ height:58px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .supporters-track{ animation:none; width:auto; }
+    .supporters-set{ flex-wrap:wrap; justify-content:center; row-gap:16px; padding:0 16px; width:100%; }
+    .supporters-set[aria-hidden="true"]{ display:none; }
+    .supporters-viewport{ -webkit-mask-image:none; mask-image:none; }
+  }
+
   .hero-actions{
     display:flex;
     flex-wrap:wrap;
@@ -1283,9 +1357,11 @@
         <path d="M60 10 C40 40, 30 90, 60 190 M60 40 C40 55, 25 65, 15 60 M60 70 C82 82, 95 78, 100 65 M60 110 C38 118, 25 130, 22 148 M60 140 C84 150, 96 145, 102 130"/>
       </svg>
 
-      <div class="hero-partner">
-        <span>Supporting Partner</span>
-        <img src="images/agropure-logo.png" alt="AgroPure" width="255" height="135">
+      <div class="hero-presents">
+        <img class="hp-agro" src="images/agropure-logo.png" alt="AgroPure" width="255" height="135">
+        <span class="hp-tag">Pulses, Besan, Maida, Sooji, Dalia, Poha, Vermicelli, Macaroni, Seviyan &amp; Pasta</span>
+        <span class="hp-word">Presents</span>
+        <img class="hp-wwu" src="images/wwu-logo.png" alt="Wonder Women Utsav" width="1845" height="1050">
       </div>
 
       <h1 class="hero-headline"><span class="hl"><span>A Festive World</span></span><span class="hl"><span>Curated <em>Around Her<svg class="thread-star word-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></em></span></span></h1>
@@ -1346,6 +1422,38 @@
   </div>
   <div class="hero-marquee" aria-hidden="true"><div class="mq-track"><div class="mq-set"><span class="mq-item">Fashion</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Jewellery</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Beauty</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Home &amp; Decor</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Food</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Gifting</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Hourly Prizes</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Women-led Brands</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></div><div class="mq-set"><span class="mq-item">Fashion</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Jewellery</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Beauty</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Home &amp; Decor</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Food</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Gifting</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Hourly Prizes</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg><span class="mq-item">Women-led Brands</span><svg class="mq-star" viewBox="0 0 20 20" aria-hidden="true"><use href="#thread-star" width="100%" height="100%"/></svg></div></div></div>
 </section>
+
+<!-- ============================================================
+     SUPPORTERS STRIP
+============================================================ -->
+<section class="supporters" aria-label="Supported by">
+  <p class="supporters-label">Supported By</p>
+  <div class="supporters-viewport">
+    <div class="supporters-track">
+      <div class="supporters-set">
+        <img src="images/supporters/veeba.webp" alt="Veeba" loading="lazy">
+        <img src="images/supporters/sunmood.webp" alt="Sunmood" loading="lazy">
+        <img src="images/supporters/allure-cakecart.webp" alt="Allure Cakecart" class="is-square" loading="lazy">
+        <img src="images/supporters/sunder-vihar-society.webp" alt="Sunder Vihar Society" class="is-square" loading="lazy">
+        <img src="images/supporters/pragati-rental-services.webp" alt="Pragati Rental Services" loading="lazy">
+        <img src="images/supporters/the-exotic-vacation.webp" alt="The Exotic Vacation" class="is-square" loading="lazy">
+        <img src="images/supporters/krishna-flowers.webp" alt="Krishna Flowers" class="is-square" loading="lazy">
+        <img src="images/supporters/coco-cloud.webp" alt="Coco Cloud" class="is-square" loading="lazy">
+      </div>
+      <div class="supporters-set" aria-hidden="true">
+        <img src="images/supporters/veeba.webp" alt="" loading="lazy">
+        <img src="images/supporters/sunmood.webp" alt="" loading="lazy">
+        <img src="images/supporters/allure-cakecart.webp" alt="" class="is-square" loading="lazy">
+        <img src="images/supporters/sunder-vihar-society.webp" alt="" class="is-square" loading="lazy">
+        <img src="images/supporters/pragati-rental-services.webp" alt="" loading="lazy">
+        <img src="images/supporters/the-exotic-vacation.webp" alt="" class="is-square" loading="lazy">
+        <img src="images/supporters/krishna-flowers.webp" alt="" class="is-square" loading="lazy">
+        <img src="images/supporters/coco-cloud.webp" alt="" class="is-square" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ============================================================
      INTRODUCTION ("The Utsav")
@@ -1918,7 +2026,7 @@
   function playIntro(){
     if (!window.gsap || reduceMotion) return;
     if (introTl) introTl.kill();
-    gsap.set(['.navbar', '.hero-partner', '.hl > span', '.hero-actions .btn', '.hero-signature',
+    gsap.set(['.navbar', '.hero-presents > *', '.hl > span', '.hero-actions .btn', '.hero-signature',
               '.hero-event-item', '.hero-rsvp', '.hero-countdown', '.hero-dots', '.hero-marquee', '.hero-slides'],
              { clearProps: 'all' });
     introTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
@@ -1928,7 +2036,7 @@
                             { left: '100%', duration: 1.5, ease: 'power4.inOut' }, 0.15)
       .to('.hero-wipe', { opacity: 0, duration: 0.3 }, 1.6)
       .from('.navbar', { y: -24, opacity: 0, duration: 0.6 }, 0)
-      .from('.hero-partner', { y: 16, opacity: 0, duration: 0.6 }, 0.3)
+      .from('.hero-presents > *', { y: 14, opacity: 0, duration: 0.55, stagger: 0.09 }, 0.3)
       .from('.hl > span', { yPercent: 115, duration: 1, stagger: 0.14, ease: 'power4.out' }, 0.45)
       .from('.hero-actions .btn', { y: 18, opacity: 0, duration: 0.6, stagger: 0.08 }, 0.95)
       .from('.hero-signature', { opacity: 0, x: -10, duration: 0.6 }, 1.1)
