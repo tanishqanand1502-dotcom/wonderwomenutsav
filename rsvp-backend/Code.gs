@@ -65,7 +65,7 @@ function doPost(e) {
         // Fill in an email if they didn't give one the first time.
         if (email && !sheet.getRange(row, COL.email).getValue()) sheet.getRange(row, COL.email).setValue(email);
       } else {
-        sheet.appendRow([new Date(), name, '+91 ' + phone, email, guests,
+        sheet.appendRow([new Date(), name, "'+91 " + phone, email, guests,
                          consent ? 'Yes' : 'No', '', '', clean_(data.source, 200)]);
         row = sheet.getLastRow();
       }
@@ -254,6 +254,7 @@ function setup() {
     sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS])
       .setFontWeight('bold').setBackground('#050505').setFontColor('#C7AE32');
     sheet.setFrozenRows(1);
+    sheet.getRange('C:C').setNumberFormat('@');
   }
   var me = Session.getActiveUser().getEmail();
   if (me) {
@@ -261,5 +262,13 @@ function setup() {
     console.log('Setup done. Test confirmation email sent to ' + me);
   } else {
     console.log('Setup done.');
+  }
+}
+
+/** Deletes the setup test rows (names starting with "TEST Entry"). Safe to run any time. */
+function removeTestRows() {
+  var sheet = getSheet_();
+  for (var r = sheet.getLastRow(); r >= 2; r--) {
+    if (String(sheet.getRange(r, COL.name).getValue()).indexOf('TEST Entry') === 0) sheet.deleteRow(r);
   }
 }
