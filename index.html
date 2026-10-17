@@ -751,6 +751,161 @@
 
 
   /* ============================================================
+     HERO RSVP PROMPT
+  ============================================================ */
+  .hero-rsvp{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:12px 18px;
+    margin-top:6px;
+  }
+  .hero-rsvp-note{
+    font-size:12px;
+    letter-spacing:.04em;
+    color: var(--muted);
+  }
+
+  /* ============================================================
+     RSVP / CONFIRM YOUR VISIT
+  ============================================================ */
+  .rsvp-section{ background: var(--black); overflow:hidden; }
+  .rsvp-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap: clamp(36px,5vw,64px);
+    align-items:start;
+  }
+  @media (min-width:900px){
+    .rsvp-grid{ grid-template-columns: .9fr 1.1fr; align-items:center; }
+  }
+  .rsvp-copy .eyebrow{ margin-bottom:16px; }
+  .rsvp-copy h2{ font-size: clamp(28px,4vw,44px); color:var(--ivory); line-height:1.16; margin-bottom:16px; }
+  .rsvp-copy h2 em{ font-style:italic; color: var(--gold); }
+  .rsvp-copy > p{ font-size:15.5px; color: var(--muted); max-width:440px; margin:0 0 28px; }
+  .rsvp-points{ display:flex; flex-direction:column; gap:16px; max-width:420px; }
+  .rsvp-point{ display:flex; align-items:flex-start; gap:12px; }
+  .rsvp-point i{ font-size:20px; color: var(--gold); flex:0 0 22px; line-height:1.2; }
+  .rsvp-point strong{ display:block; font-size:13px; letter-spacing:.04em; color:var(--ivory); }
+  .rsvp-point span{ display:block; font-size:13px; color: var(--muted); line-height:1.5; }
+
+  .rsvp-card{
+    position:relative;
+    background: var(--ivory);
+    color: var(--ink);
+    border-radius:3px;
+    padding: clamp(24px,4vw,44px);
+    box-shadow: 0 30px 80px rgba(0,0,0,.45);
+  }
+  .rsvp-card::before{
+    content:"";
+    position:absolute; inset:8px;
+    border:1px solid rgba(199,174,50,.45);
+    border-radius:2px;
+    pointer-events:none;
+  }
+  .rsvp-card h3{ font-size: clamp(22px,2.6vw,28px); margin-bottom:6px; }
+  .rsvp-card .rsvp-sub{ font-size:13.5px; color:#6b6862; margin:0 0 24px; }
+  .rsvp-form{ display:flex; flex-direction:column; gap:18px; position:relative; }
+  .rsvp-row{ display:grid; grid-template-columns:1fr; gap:18px; }
+  @media (min-width:560px){ .rsvp-row.two{ grid-template-columns: 1.4fr .6fr; } }
+  .rsvp-field{ display:flex; flex-direction:column; gap:7px; }
+  .rsvp-field label{
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#4a4740;
+  }
+  .rsvp-field label .opt{ font-weight:600; letter-spacing:.04em; text-transform:none; color:#8f8b82; }
+  .rsvp-input-wrap{ position:relative; display:flex; align-items:stretch; }
+  .rsvp-prefix{
+    display:flex; align-items:center;
+    padding: 0 12px;
+    font-size:15px; font-weight:600;
+    color:#4a4740;
+    background:#ebe5d6;
+    border:1px solid #d4ccb8;
+    border-right:none;
+    border-radius:3px 0 0 3px;
+  }
+  .rsvp-field input, .rsvp-field select{
+    width:100%;
+    font-family:var(--sans);
+    font-size:16px; /* 16px stops iOS zoom-on-focus */
+    color: var(--ink);
+    background:#fffdf8;
+    border:1px solid #d4ccb8;
+    border-radius:3px;
+    padding: 13px 14px;
+    transition: border-color .2s ease, box-shadow .2s ease;
+    -webkit-appearance:none; appearance:none;
+  }
+  .rsvp-field select{
+    background-image: linear-gradient(45deg, transparent 50%, #6b6862 50%), linear-gradient(135deg, #6b6862 50%, transparent 50%);
+    background-position: calc(100% - 18px) 55%, calc(100% - 13px) 55%;
+    background-size: 5px 5px;
+    background-repeat:no-repeat;
+    padding-right:34px;
+  }
+  .rsvp-prefix + input{ border-radius:0 3px 3px 0; }
+  .rsvp-field input:focus, .rsvp-field select:focus{
+    outline:none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(199,174,50,.22);
+  }
+  .rsvp-field.has-error input{ border-color:#b4372b; }
+  .rsvp-error{ font-size:12.5px; color:#b4372b; min-height:0; display:none; }
+  .rsvp-field.has-error .rsvp-error{ display:block; }
+  .rsvp-consent{
+    display:flex; align-items:flex-start; gap:10px;
+    font-size:13px; color:#5c5952; line-height:1.5;
+    cursor:pointer;
+  }
+  .rsvp-consent input{
+    flex:0 0 18px; width:18px; height:18px; margin:2px 0 0;
+    accent-color: #8a7a1f;
+  }
+  .rsvp-hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .rsvp-submit{ width:100%; padding:17px 24px; margin-top:4px; }
+  .rsvp-submit[disabled]{ opacity:.65; cursor:progress; }
+  .rsvp-submit .bx-loader-alt{ animation: rsvp-spin .9s linear infinite; }
+  @keyframes rsvp-spin{ to{ transform: rotate(360deg); } }
+  .rsvp-status{
+    display:none;
+    font-size:13.5px;
+    padding:12px 14px;
+    border-radius:3px;
+    background:#f6e3e0; color:#8a2a20;
+  }
+  .rsvp-status.show{ display:block; }
+  .rsvp-fineprint{ font-size:11.5px; color:#8f8b82; margin:0; text-align:center; }
+
+  .rsvp-success{ display:none; text-align:center; padding: 8px 0; }
+  .rsvp-card.is-done .rsvp-form, .rsvp-card.is-done .rsvp-intro{ display:none; }
+  .rsvp-card.is-done .rsvp-success{ display:block; }
+  .rsvp-success-icon{
+    width:76px; height:76px; margin:0 auto 18px;
+    display:flex; align-items:center; justify-content:center;
+    border-radius:50%;
+    background:#1f9d55; color:#fff;
+    box-shadow: 0 0 0 8px rgba(31,157,85,.14);
+  }
+  .rsvp-success-icon svg{ width:40px; height:40px; }
+  .rsvp-success-icon path{ stroke-dasharray:40; stroke-dashoffset:40; }
+  .rsvp-card.is-done .rsvp-success-icon path{ animation: rsvp-tick .5s .15s ease-out forwards; }
+  @keyframes rsvp-tick{ to{ stroke-dashoffset:0; } }
+  .rsvp-success p{ margin-bottom:18px !important; }
+  .rsvp-success h3{ margin-bottom:10px; }
+  .rsvp-success p{ font-size:14.5px; color:#5c5952; max-width:380px; margin:0 auto 10px; }
+  .rsvp-again{ font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#8a7a1f; border-bottom:1px solid rgba(138,122,31,.4); padding-bottom:3px; }
+  .rsvp-botanical{ top:6%; left:2%; width:120px; height:200px; }
+  @media (prefers-reduced-motion: reduce){
+    .rsvp-submit .bx-loader-alt{ animation:none; }
+    .rsvp-card.is-done .rsvp-success-icon path{ animation:none; stroke-dashoffset:0; }
+  }
+
+  /* ============================================================
      FINAL CTA
   ============================================================ */
   .final-cta{
@@ -897,6 +1052,7 @@
     <a href="#experience">Experience</a>
     <a href="#gallery">Gallery</a>
     <a href="#visit">Visit</a>
+    <a href="#rsvp">RSVP</a>
     <a href="#partner">Partner With Us</a>
   </nav>
   <div class="nav-cta">
@@ -914,6 +1070,7 @@
   <a href="#experience">Experience</a>
   <a href="#gallery">Gallery</a>
   <a href="#visit">Visit</a>
+  <a href="#rsvp">Confirm Your Visit</a>
   <a href="#partner">Partner With Us</a>
   <a class="btn btn-primary" href="https://drive.google.com/file/d/1Lb-9YAq3hSgCPG3eM9e-E6PZQBrs9pAO/view?usp=sharing" target="_blank" rel="noopener">Reserve Your Space</a>
 </div>
@@ -954,6 +1111,11 @@
           <i class='bx bx-gift'></i>
           <div><strong>Free Entry</strong><span>All Are Welcome</span></div>
         </div>
+      </div>
+
+      <div class="hero-rsvp">
+        <a class="btn btn-secondary" href="#rsvp"><i class='bx bx-check-circle'></i> Confirm Your Visit</a>
+        <span class="hero-rsvp-note">Visiting? RSVP in 20 seconds</span>
       </div>
     </div>
 
@@ -1111,6 +1273,95 @@
 </div>
 
 <!-- ============================================================
+     RSVP / CONFIRM YOUR VISIT
+============================================================ -->
+<section class="section rsvp-section section-pad" id="rsvp">
+  <svg class="botanical rsvp-botanical" viewBox="0 0 120 200" aria-hidden="true">
+    <path d="M60 10 C40 40, 30 90, 60 190 M60 40 C40 55, 25 65, 15 60 M60 70 C82 82, 95 78, 100 65 M60 110 C38 118, 25 130, 22 148"/>
+  </svg>
+  <div class="container">
+    <div class="rsvp-grid">
+      <div class="rsvp-copy">
+        <p class="eyebrow align-left">Confirm Your Visit</p>
+        <h2>We&rsquo;re Saving <em>a Place</em> for You</h2>
+        <p>Entry is free and open to all. Let us know you&rsquo;re coming and we&rsquo;ll send your confirmation straight to your phone and inbox.</p>
+        <div class="rsvp-points">
+          <div class="rsvp-point"><i class='bx bx-calendar-star'></i><div><strong>Saturday, 31 October 2026</strong><span>10 AM &ndash; 8 PM, come any time</span></div></div>
+          <div class="rsvp-point"><i class='bx bx-map-pin'></i><div><strong>Sunder Bhawan</strong><span>Community Centre, Sunder Vihar, New Delhi</span></div></div>
+          <div class="rsvp-point"><i class='bx bxl-whatsapp'></i><div><strong>Instant confirmation</strong><span>On WhatsApp and email, as soon as you register</span></div></div>
+        </div>
+      </div>
+
+      <div class="rsvp-card" id="rsvpCard">
+        <div class="rsvp-intro">
+          <h3>RSVP for the Utsav</h3>
+          <p class="rsvp-sub">Takes less than a minute.</p>
+        </div>
+
+        <form class="rsvp-form" id="rsvpForm" novalidate>
+          <div class="rsvp-field" data-field="name">
+            <label for="rsvpName">Full name</label>
+            <input id="rsvpName" name="name" type="text" autocomplete="name" maxlength="80" required placeholder="e.g. Priya Sharma">
+            <span class="rsvp-error">Please enter your name.</span>
+          </div>
+
+          <div class="rsvp-row two">
+            <div class="rsvp-field" data-field="phone">
+              <label for="rsvpPhone">WhatsApp number</label>
+              <div class="rsvp-input-wrap">
+                <span class="rsvp-prefix">+91</span>
+                <input id="rsvpPhone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="18" required placeholder="98XXXXXXXX">
+              </div>
+              <span class="rsvp-error">Enter a valid 10-digit Indian mobile number.</span>
+            </div>
+            <div class="rsvp-field" data-field="guests">
+              <label for="rsvpGuests">Coming as</label>
+              <select id="rsvpGuests" name="guests">
+                <option value="1">Just me</option>
+                <option value="2">2 people</option>
+                <option value="3">3 people</option>
+                <option value="4">4 people</option>
+                <option value="5">5+ people</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="rsvp-field" data-field="email">
+            <label for="rsvpEmail">Email <span class="opt">(optional)</span></label>
+            <input id="rsvpEmail" name="email" type="email" autocomplete="email" maxlength="120" placeholder="you@example.com">
+            <span class="rsvp-error">That email doesn&rsquo;t look right.</span>
+          </div>
+
+          <label class="rsvp-consent">
+            <input type="checkbox" id="rsvpConsent" name="consent" checked>
+            <span>Send my confirmation and event updates on WhatsApp.</span>
+          </label>
+
+          <div class="rsvp-hp" aria-hidden="true">
+            <label for="rsvpWebsite">Leave this empty</label>
+            <input id="rsvpWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="rsvp-status" id="rsvpStatus" role="alert"></div>
+
+          <button class="btn btn-primary rsvp-submit" type="submit" id="rsvpSubmit">
+            <span class="rsvp-submit-label">Confirm My Visit</span>
+          </button>
+          <p class="rsvp-fineprint">We only use your details for Wonder Women Utsav updates. No spam.</p>
+        </form>
+
+        <div class="rsvp-success" id="rsvpSuccess" aria-live="polite">
+          <div class="rsvp-success-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+          <h3>You&rsquo;re registered, <span id="rsvpDoneName">friend</span>!</h3>
+          <p id="rsvpDoneMsg">See you on Saturday, 31 October at Sunder Bhawan.</p>
+          <button type="button" class="rsvp-again" id="rsvpAgain">RSVP for someone else</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
      INSTAGRAM
 ============================================================ -->
 <section class="section insta-section section-pad">
@@ -1221,7 +1472,7 @@
     onScroll();
     window.addEventListener('scroll', onScroll, { passive:true });
 
-    var sections = document.querySelectorAll('#hero, #utsav, #exhibitors, #experience, #gallery, #visit, #partner');
+    var sections = document.querySelectorAll('#hero, #utsav, #exhibitors, #experience, #gallery, #visit, #rsvp, #partner');
     var links = document.querySelectorAll('.nav-links a');
     if (window.IntersectionObserver && sections.length){
       var io = new IntersectionObserver(function(entries){
@@ -1429,6 +1680,113 @@
     });
 
     render('all');
+  })();
+
+  /* ---------- RSVP form ---------- */
+  (function initRsvp(){
+    /* Paste the Google Apps Script web-app URL here after deploying it
+       (Deploy > New deployment > Web app). It ends in /exec. */
+    var RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxYSMwAfNpgCXlfxhHOuspGWO1jDcfejShnR3f42U6grISAWYbhHZ1CI5N9h5W-ATNQ/exec';
+
+    var card = document.getElementById('rsvpCard');
+    var form = document.getElementById('rsvpForm');
+    if (!card || !form) return;
+    var submitBtn = document.getElementById('rsvpSubmit');
+    var statusEl = document.getElementById('rsvpStatus');
+    var labelEl = submitBtn.querySelector('.rsvp-submit-label');
+
+    function el(id){ return document.getElementById(id); }
+    function field(name){ return form.querySelector('[data-field="' + name + '"]'); }
+    function setError(name, on){ var f = field(name); if (f) f.classList.toggle('has-error', !!on); }
+    function showStatus(msg){ statusEl.textContent = msg; statusEl.classList.toggle('show', !!msg); }
+
+    /* Accepts 98xxxxxxxx, 098xxxxxxxx, +91 98xxx xxxxx, 91-98xxxxxxxx */
+    function normalisePhone(raw){
+      var d = String(raw || '').replace(/\D/g, '');
+      if (d.length === 12 && d.indexOf('91') === 0) d = d.slice(2);
+      else if (d.length === 11 && d.charAt(0) === '0') d = d.slice(1);
+      return /^[6-9]\d{9}$/.test(d) ? d : null;
+    }
+    function validEmail(v){ return !v || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+    ['name','phone','email'].forEach(function(n){
+      var input = field(n).querySelector('input');
+      input.addEventListener('input', function(){ setError(n, false); showStatus(''); });
+    });
+
+    function setLoading(on){
+      submitBtn.disabled = on;
+      labelEl.innerHTML = on ? "<i class='bx bx-loader-alt'></i> Confirming&hellip;" : 'Confirm My Visit';
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      showStatus('');
+      var name = el('rsvpName').value.trim().replace(/\s+/g, ' ');
+      var phone = normalisePhone(el('rsvpPhone').value);
+      var email = el('rsvpEmail').value.trim();
+      var ok = true;
+      if (name.length < 2){ setError('name', true); ok = false; }
+      if (!phone){ setError('phone', true); ok = false; }
+      if (!validEmail(email)){ setError('email', true); ok = false; }
+      if (!ok){
+        var first = form.querySelector('.has-error input');
+        if (first) first.focus();
+        return;
+      }
+      if (RSVP_ENDPOINT.indexOf('http') !== 0){
+        showStatus('RSVP is almost ready. Please check back shortly, or call +91 98102 36151.');
+        return;
+      }
+
+      var payload = {
+        name: name,
+        phone: phone,
+        email: email,
+        guests: el('rsvpGuests').value,
+        whatsappConsent: el('rsvpConsent').checked,
+        website: el('rsvpWebsite').value,   /* honeypot: bots fill this, people don't */
+        source: location.href
+      };
+
+      setLoading(true);
+      /* text/plain keeps this a "simple" request, so Apps Script needs no CORS preflight */
+      fetch(RSVP_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        setLoading(false);
+        if (!res || !res.ok){
+          showStatus((res && res.error) || 'Something went wrong. Please try again.');
+          return;
+        }
+        document.getElementById('rsvpDoneName').textContent = name.split(' ')[0];
+        var where = [];
+        if (payload.whatsappConsent) where.push('WhatsApp');
+        if (email) where.push('email');
+        var msg = res.duplicate
+          ? 'You were already on our list. See you on Saturday, 31 October at Sunder Bhawan.'
+          : 'See you on Saturday, 31 October at Sunder Bhawan.';
+        if (where.length) msg += ' A confirmation is on its way to your ' + where.join(' and ') + '.';
+        document.getElementById('rsvpDoneMsg').textContent = msg;
+        card.classList.add('is-done');
+        card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      })
+      .catch(function(){
+        setLoading(false);
+        showStatus('We couldn’t reach the server. Check your connection and try again.');
+      });
+    });
+
+    document.getElementById('rsvpAgain').addEventListener('click', function(){
+      form.reset();
+      el('rsvpConsent').checked = true;
+      card.classList.remove('is-done');
+      el('rsvpName').focus();
+    });
   })();
 })();
 </script>
