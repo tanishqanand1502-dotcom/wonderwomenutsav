@@ -539,6 +539,7 @@
   .supporters-set{ display:flex; align-items:center; gap: clamp(40px,5vw,72px); padding-right: clamp(40px,5vw,72px); flex-shrink:0; }
   .supporters-set img{ display:block; height:64px; width:auto; }
   .supporters-set img.is-square{ height:76px; }
+  .supporters-set img.is-tall{ height:96px; }
   @keyframes sup-scroll{ to{ transform: translateX(-50%); } }
   @media (max-width:640px){
     .supporters{ flex-direction:column; align-items:stretch; }
@@ -546,6 +547,7 @@
     .supporters-viewport{ padding:12px 0 16px; }
     .supporters-set img{ height:46px; }
     .supporters-set img.is-square{ height:56px; }
+    .supporters-set img.is-tall{ height:72px; }
   }
   @media (prefers-reduced-motion: reduce){
     .supporters-track{ animation:none; width:auto; }
@@ -1536,7 +1538,7 @@
       <div class="supporters-track">
         <div class="supporters-set">
           <img src="images/supporters/veeba.webp" alt="Veeba">
-          <img src="images/supporters/aerthix.webp" alt="Aerthix">
+          <img src="images/supporters/aerthix.webp" alt="Aerthix" class="is-tall">
           <img src="images/supporters/sunmood.webp" alt="Sunmood">
           <img src="images/supporters/allure-cakecart.webp" alt="Allure Cakecart" class="is-square">
           <img src="images/supporters/sunder-vihar-society.webp" alt="Sunder Vihar Society" class="is-square">
@@ -1547,7 +1549,7 @@
         </div>
         <div class="supporters-set" aria-hidden="true">
           <img src="images/supporters/veeba.webp" alt="">
-          <img src="images/supporters/aerthix.webp" alt="">
+          <img src="images/supporters/aerthix.webp" alt="" class="is-tall">
           <img src="images/supporters/sunmood.webp" alt="">
           <img src="images/supporters/allure-cakecart.webp" alt="" class="is-square">
           <img src="images/supporters/sunder-vihar-society.webp" alt="" class="is-square">
