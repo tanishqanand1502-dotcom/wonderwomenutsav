@@ -538,6 +538,7 @@
   .supporters:hover .supporters-track{ animation-play-state: paused; }
   .supporters-set{ display:flex; align-items:center; gap: clamp(40px,5vw,72px); padding-right: clamp(40px,5vw,72px); flex-shrink:0; }
   .supporters-set img{ display:block; height:100px; width:auto; }
+  .supporters-set img[src$="veeba.webp"]{ transform: translateY(-8px); }
   @keyframes sup-scroll{ to{ transform: translateX(-50%); } }
   @media (max-width:640px){
     .supporters{ flex-direction:column; align-items:stretch; }
